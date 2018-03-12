@@ -13,23 +13,26 @@
 Accidents, disasters, political rallies...we are eager to gather information about different kinds of live events that happen around us. In the past, we rely on experienced journalists to cover the stories. At now, thanks to the emergence of micro-blogging platforms, we are provided with more instant reports from various information sources. Study shows that the majority (over $85\%$) of trending topics in microblog sphere are headline news and real-life events~\cite{kwak2010twitter}. The massive amount of event related tweets highlights the importance of an event summarization system. 
 
 %requirement: realtime
-To facilitates knowledge management and improves user experiences, the event summary needs to be realtime. On one hand, the response must be realtime, which requires an efficient algorithm to quickly generate a summary. On the other hand, the summary must reflect the current status of the event, which indicates the summary should be updated if necessary. 
+To facilitates knowledge management and improves user experiences, the event summary needs to be realtime. On one hand, the response must be realtime, which requires an efficient algorithm to analyze the tweets as they arrive. On the other hand, the summary must reflect the current status of the event, which indicates the summary should be updated if necessary. 
 
 
 %Related Work: focus on extractive methods.
-We have witnessed rapidly increasing popularity of research efforts in event summarization from tweets~\cite{}.  Most previous research works produce the summary in an extractive manner, i.e. they extract most representative tweets based on several criterion,  A few researchers also mentioned the realtime factor in event summarizations. However, their summaries are incremental, providing a good coverage, but  suffering from  poor brevity and inconsistence. In their methods, former summaries can not be deleted or replaced. When there is new information to be covered, the summary gets more verbose. Furthermore, former summaries can be inadequate to deliver up-to-date information.
+We have witnessed rapidly increasing popularity of research efforts in event summarization from tweets~\cite{}.  Most previous research works produce the summary in an extractive manner, i.e. they extract most representative tweets and blend them into a summary. A few researchers also mentioned the realtime factor in event summarizations~\cite{}. However, their summaries are incremental, i.e. recent summaries are addeded to cover new information, former summaries can not be deleted or replaced. The weakness is that the resulting summary can suffer from \textbf{poor brevity, inconsistency, and inadequacy to keep the readers up-to-date}.
 
 
-%Three Scenarios when we need to update a summary (1) better candidate for a brief summary (2) conflicting information (3) outdated summary
-There are three scenarios when a former summary needs to be deleted or replaced. (1) A better candidate appears for a brief summary. (2) Conflicting information (3) Outdated information. first-hand
+%explain poor brevity, inconsistency, and inadequacy to deliver up-to-date information
+There are three scenarios when a former summary needs to be deleted or replaced. (1) Better candidate. Due to the noisy nature of social sphere, it is well regarded that the selection of representative tweets is based on multiple criteria, i.e. the summary must achieve both good coverage and high quality. When the system detects a better tweet which covers the same topic, the former summary should be replaced to produce a brief summary. (2) Conflicting information. For many events users are interested on information such as number of injuries in a disaster, suspects in a crime and so on. The number of injuries could be changing as the event is evolving. The police might have suspected the wrong person. If the former summary is kept, the sumamry will be inconsistent. (3) Lost of public attention to a historical stage. When the event is moving into a new epoch, there is no need to maintain outdated summaries for the historical stage which we are over.
 
 %Re-computation is infeasible (1) streaming text (2) realtime response
-In this paper we study event summarization with replacements.  Challenges: steaming, minimal storage. 
+In this paper we study the problem of realtime event summarization. We focus on designing algorithms that can efficiently replace former summaries with approapriate substitues. There are two challenges arised in doing so.
+
+Firstly, at the macro-level, we are handling social text streams. Generating summaries involves of peer-to-peer similarity computation. However, as the amount of available tweets constantly increases, recomputation based on a full similarity matrix is infeasible. Our goal is to incorporate new tweets as it becomes available, and to limit the storage and processing of old tweets. 
 
 %Another challenge: similarity content + structure
-The second challenge 
+Secondly, at the micro-level, determining whether a tweet needs to be replaced is computationally expensive. For example, to decide whether two tweets are conflicting, we have to extract the grammar structure of each tweet and match the corresponding compartments. To speed up the summarization, we have to reduce the volumn of tweets that need to be deep analyzed.   
 
-%Intuitiion: macro-level: incremental computation; micro-level: structure similarity measurments only when needed
+%present work
+To address the above two challenges, we embed the micro-level deep analysis into a streaming algorithm that operates on macro-level. We first consider the case a static summary is generated from a set of tweets. We model it as a integer programing problem and solve it by simplex method on a relaxed linear form. We then modify the simplex method to deal with streaming tweets. We detect old summaries that are most likely to be conflicting with new summaries in the simplex iterations to reduce computational cost of micro-level analysis. 
 
 %present work: based on simplex method
 
