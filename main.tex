@@ -5,21 +5,29 @@
 \usepackage[linesnumbered,boxed]{algorithm2e}
 
 \author{Lingting Lin, Yunjie Wang, Chen Lin}
-\title{Realtime Event Summarization}
+\title{Realtime Event Summarization from Tweets with Replacements}
 \begin{document}
 \maketitle
 \section{Introduction}
-%Motivation: why do we need event summarization
+%Motivation: why do we need event summarization from tweets
+Accidents, disasters, political rallies...we are eager to gather information about different kinds of live events that happen around us. In the past, we rely on experienced journalists to cover the stories. At now, thanks to the emergence of micro-blogging platforms, we are provided with more instant reports from various information sources. Study shows that the majority (over $85\%$) of trending topics in microblog sphere are headline news and real-life events~\cite{kwak2010twitter}. The massive amount of event related tweets highlights the importance of an event summarization system. 
 
-%Event summarization should be real time
+%requirement: realtime
+To facilitates knowledge management and improves user experiences, the event summary needs to be realtime. On one hand, the response must be realtime, which requires an efficient algorithm to quickly generate a summary. On the other hand, the summary must reflect the current status of the event, which indicates the summary should be updated if necessary. 
 
-%Related Work: focus on extractive methods. cons: add a representative tweet
+
+%Related Work: focus on extractive methods.
+We have witnessed rapidly increasing popularity of research efforts in event summarization from tweets~\cite{}.  Most previous research works produce the summary in an extractive manner, i.e. they extract most representative tweets based on several criterion,  A few researchers also mentioned the realtime factor in event summarizations. However, their summaries are incremental, providing a good coverage, but  suffering from  poor brevity and inconsistence. In their methods, former summaries can not be deleted or replaced. When there is new information to be covered, the summary gets more verbose. Furthermore, former summaries can be inadequate to deliver up-to-date information.
+
 
 %Three Scenarios when we need to update a summary (1) better candidate for a brief summary (2) conflicting information (3) outdated summary
+There are three scenarios when a former summary needs to be deleted or replaced. (1) A better candidate appears for a brief summary. (2) Conflicting information (3) Outdated information. first-hand
 
 %Re-computation is infeasible (1) streaming text (2) realtime response
+In this paper we study event summarization with replacements.  Challenges: steaming, minimal storage. 
 
 %Another challenge: similarity content + structure
+The second challenge 
 
 %Intuitiion: macro-level: incremental computation; micro-level: structure similarity measurments only when needed
 
