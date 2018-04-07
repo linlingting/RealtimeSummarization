@@ -1,83 +1,145 @@
 
-\documentclass{article}
+\documentclass{llncs}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage[linesnumbered,boxed]{algorithm2e}
 
-\author{Lingting Lin, Yunjie Wang, Chen Lin}
-\title{Realtime Event Summarization from Tweets with Replacements}
+
+
 \begin{document}
+\title{Realtime Event Summarization from Tweets with Inconsistency Detection}
+\author{Lingting Lin, Yunjie Wang, Chen Lin}
+\institute{Department of Computer Science, Xiamen University \email{chenlin@xmu.edu.cn}}
+
 \maketitle
+\begin{abstract}
+\end{abstract}
 \section{Introduction}
-%Motivation: why do we need event summarization from tweets
-Accidents, disasters, political rallies...we are eager to gather information about different kinds of live events that happen around us. In the past, we rely on experienced journalists to cover the stories. At now, thanks to the emergence of micro-blogging platforms, we are provided with more instant reports from various information sources. Study shows that the majority (over $85\%$) of trending topics in microblog sphere are headline news and real-life events~\cite{kwak2010twitter}. The massive amount of event related tweets highlights the importance of an event summarization system. 
+%Motivation
+Accidents, disasters, political rallies...we are eager to gather information about different kinds of live events that happen around us. In the past, we rely on experienced journalists to cover the stories. At now, thanks to the large community of micro-blogging users, we are provided with instant reports published by individuals and organizations all over the world.  More and more people today rely on microblogging contents, such as Tweets, to seek information about live events. However, the huge volume of event related tweets could be overwhelming. For example, TweeStudy shows that the majority (over $85\%$) of trending topics in microblog sphere are headline news and real-life events~\cite{kwak2010twitter}. An event summarization system is needed to facilitate knowledge management and improve user experiences. 
+
+We have witnessed rapidly increasing popularity of research efforts in event summarization from tweets~\cite{}.   Most previous work are based on extractive method, i.e. they extract a smallest set of representative tweet reports\footnote{To distinguish tweets to be summarized and tweets in the summary, we will refer the former as tweets and the latter as reports} to form a brief summary. Extractive methods are easy to implement and have shown to perform well~\cite{}. Our arguments are founded on extractive summarization methods.
 
 %requirement: realtime
-To facilitates knowledge management and improves user experiences, the event summary needs to be realtime. On one hand, the response must be realtime, which requires an efficient algorithm to analyze the tweets as they arrive. On the other hand, the summary must reflect the current status of the event, which indicates the summary should be updated if necessary. 
+Beyond the usual requirements for text summarization systems, such as coverage and representativeness of the summary,  event summary must also be \textbf{realtime}. On one hand, the response must be fast. The summary must be efficiently updated as new tweets arrive. On the other hand, the summary must report the current status of the event. As an ongoing event often involves changing information, report must be updated to include new information when it emerges. 
+
+%inconsistency 
+During the update process, the integrity of the summary must be preserved.  An outdated report must be replaced if it leads to \textbf{inconsistency} in the summary. An inconsistent summary is harmful for most live events because it is confusing and misleading. In particular, for natural disaster or group incidents,  users are interested on  information such as number of injuries, suspects description and so on. We here list three scenarios when a former report needs to be replaced because of inconsistency. (1) The information changes as a natural consequence of event evolution. For example, in an earthquake the number of injuries is increasing over time. Thus the numbers in previous summaries become obsolete and they should be replaced by the most up-to-date numbers. (2) Multiple information sources provide conflicting information. For example, the number of injuries is often estimated by several parties, such as  bystanders, hospitals and so on. When a more authoritative source, such as the local government announces the new estimate, the old estimates in previous summaries are no longer credible and must be replaced. (3) The information in previous summaries is wrong. For example, the police have suspected the wrong person and now they update the description. In this case, the realtime event summarization system must select the correct tweet to replace former reports. 
 
 
-%Related Work: focus on extractive methods.
-We have witnessed rapidly increasing popularity of research efforts in event summarization from tweets~\cite{}.  Most previous research works produce the summary in an extractive manner, i.e. they extract most representative tweets and blend them into a summary. A few researchers also mentioned the realtime factor in event summarizations~\cite{}. However, their summaries are incremental, i.e. recent summaries are addeded to cover new information, former summaries can not be deleted or replaced. The weakness is that the resulting summary can suffer from \textbf{poor brevity, inconsistency, and inadequacy to keep the readers up-to-date}.
+%open problem: no related work prevent inconsistency in 
+Realtime event summarization from Tweets is still an open problem. In the literature, most of previous works treat the problem as producing different forms of summaries from a static set of tweets~\cite{}. A few recent research works focused on efficient algorithms to summarize the tweet streams~\cite{}. Their summarization systems are based on coarse grained semantic analysis, and thus are not able to detect inconsistency. Though we have shown that integrity of the event summary is crucial, to the best of our knowledge, none of the previous works is able to produce a realtime event summarization which is guaranteed to exclude inconsistent information.
 
 
-%explain poor brevity, inconsistency, and inadequacy to deliver up-to-date information
-There are three scenarios when a former summary needs to be deleted or replaced. (1) Better candidate. Due to the noisy nature of social sphere, it is well regarded that the selection of representative tweets is based on multiple criteria, i.e. the summary must achieve both good coverage and high quality. When the system detects a better tweet which covers the same topic, the former summary should be replaced to produce a brief summary. (2) Conflicting information. For many events users are interested on information such as number of injuries in a disaster, suspects in a crime and so on. The number of injuries could be changing as the event is evolving. The police might have suspected the wrong person. If the former summary is kept, the sumamry will be inconsistent. (3) Lost of public attention to a historical stage. When the event is moving into a new epoch, there is no need to maintain outdated summaries for the historical stage which we are over.
+%challenge
+Two challenges arise in producing realtime event summarization without inconsistent information. 
 
-%Re-computation is infeasible (1) streaming text (2) realtime response
-In this paper we study the problem of realtime event summarization. We focus on designing algorithms that can efficiently replace former summaries with approapriate substitues. To the best of our knowledge, this has not been explicitly studied before. There are two challenges arised in doing so.
+%Algorithm
+The first challenge lies in the macro-level algorithm. Realtime summarization requires an efficient algorithm to analyze the streaming tweets. As the amount of available tweets constantly increases to infinity, re-computation based on a complete set of all tweets up to the current timestamp is infeasible. The ideal algorithm is to  incorporate new tweets as they become available, and discard old tweets when possible to limit the storage and speed up processing. 
 
-Firstly, at the macro-level, we are handling social text streams. Generating summaries involves of peer-to-peer similarity computation. However, as the amount of available tweets constantly increases, recomputation based on a full similarity matrix is infeasible. Our goal is to incorporate new tweets as it becomes available, and to limit the storage and processing of old tweets. 
+%inconsistency detection
+The second challenge is related to the micro-level analysis to detect inconsistency. Inconsistency detection is based on pair-wise similarity. Coarse grained semantic analysis, such as the cosine similarity measure based on the bag of words representation in previous works~\cite{} is suitable to capture topic similarity in a summarization, but is not able to detect inconsistent information. Inconsistency is revealed via word order and syntactic structures. We need to assess information similarity based on the combination of semantic, lexical and syntactic analysis. Furthermore, inconsistency detection is computationally expensive. It is important to avoid unnecessary pair-wise comparisons.
 
-%Another challenge: similarity content + structure
-Secondly, at the micro-level, determining whether a tweet needs to be replaced is computationally expensive. For example, to decide whether two tweets are conflicting, we have to extract the grammar structure of each tweet and match the corresponding compartments. To speed up the summarization, we have to reduce the volumn of tweets that need to be deep analyzed.   
-
-%present work
-To address the above two challenges, we embed the micro-level deep analysis into a macro-level streaming algorithm. We first consider the case a static summary is generated from a set of tweets. We model it as an integer programing problem and solve it by the simplex method on a relaxed linear form. We then modify the simplex method to deal with streaming tweets. We detect old summaries that are most likely to be conflicting with new summaries in the simplex iterations to reduce computational cost of micro-level analysis. 
+%idea: micro level: 
+Our goal in this paper is to design a system that delivers realtime summary with integrity from tweets. To address the first challenge, we assume that, the realtime summarization problem given a small batch of new tweets can be modeled as two integer programming problems, one of which on the old tweets, and another on the new batch. Both integer programming problems can be relaxed to linear programming problems and be solved by the simplex method. In each update we first optimize the problem on the new batch. We use the solution on the new batch to modify the problem on the old tweets and incrementally update the summary.  In this manner, we do not need to store or operate on the complete tweet set and the full similarity matrix.  
 
 
+To address the second challenge, we propose skeleton similarity: a new similarity metric to assess information similarity between any pair of tweets. An inconsistency detection strategy, which is a combination of the skeleton similarity and authority estimation heuristics, is then adopted in the pivoting operation in the simplex method. It has two advantages in embedding the skeleton similarity computation in the simplex algorithm. (1) It significantly reduces the number of information similarity comparisons. (2) It ensures that the former summary will be replaced by most up-to-date, authoritative and correct information.
+
+
+%contributions
+Our contributions are three folds. (1) The integrity of event summary is a relatively unexplored area in Tweet summarization. We propose to improve the integrity of event summarization by explicit inconsistency detection. (2) Our system is targeted towards text streams. We differ from existing work in that we enable incremental update in the simplex method framework. (3) We propose a novel skeleton similarity to efficiently and effectively capture inconsistency.
+ 
 %paper structure
+This paper is organized as follows. We briefly survey the related work in Sec.~\ref{sec:related}. In Sec.~\ref{sec:static}, we first introduce the idea of modeling a summarization problem as an integer programming problem and the standard simplex procedure to solve the relaxed linear programming problem. In Sec.~\ref{sec:dynamic}, we give the problem definition for realtime event summarization given a small batch of new tweets and the modified simplex solution. In Sec.~\ref{sec:inconsistency}, we describe the inconsistency detection strategy. We present and analyze the experimental results on a real data set in Sec.~\ref{sec:experiment}. We conclude our work and suggest future directions in Sec.~\ref{sec:conclusion}.  
 
-\section{Related Work}
+\section{Related Work}\label{sec:related}
+%tweet summarization
+
 %Event summarization
 
-\section{Static Summarization}
+
+\section{Static Summarization}\label{sec:static}
+In this section, we first model the (standard) static summarization problem as an integer programming problem. We then introduce background knowledge about the simplex method. We finally give a outline for the algorithm to solve static summarization.
 \subsection{Problem Definition}
-Suppose that we have $N$ tweets to be summarized, within which $M$ tweets are credible and relevant. We are going to select a few representative posts from the tweet universe to form the summary. To model this problem, we use a vector $\tilde{\mathbf{x}}\in R^N$ , where each element $\tilde{\mathbf{x}}_j\in \{0,1\}$ is a binary variable. If a tweet $i$ is chosen as the abstractive sentence, the corresponding $\tilde{\mathbf{x}}_i=1$ . Otherwise, we set  $\tilde{\mathbf{x}}_i=0$. We use another $N$-dim vector $\tilde{\mathbf{c}}\in R^M$ to describe the loss of choosing each tweet as a candidate. $\tilde{\mathbf{A}}\in R^{M\times N}$  is a similarity matrix, where $\tilde{a}_{i,j}$  is the similarity between a credible and relevant tweet $i$ and a candidate tweet $j$ in the tweet universe. $\mathbf{b}\in R^{M}$ is a weight vector, where $b_{i}$ indicates the importance of $i$ being covered in the summary. Our objective is to
+Suppose that we have a universe of $N$ tweets, within which $M$ tweets are credible and relevant. The extractive method for any static summarization is to select a few representative reports from the tweet universe to form the summary. To model this problem, we use a vector $\tilde{\mathbf{x}}\in R^N$ , where each element $\tilde{\mathbf{x}}_j\in \{0,1\}$ is a binary variable. If a tweet $i$ is chosen to be a report in the summary, the corresponding $\tilde{\mathbf{x}}_i=1$ . Otherwise, we set  $\tilde{\mathbf{x}}_i=0$. We use another $N$-dim vector $\tilde{\mathbf{c}}\in R^M$ to describe the loss of choosing each tweet as a report. $\tilde{\mathbf{A}}\in R^{M\times N}$  is a similarity matrix, where $\tilde{a}_{i,j}$  is the similarity between a credible and relevant tweet $i$ and a candidate tweet $j$ in the tweet universe. $\mathbf{b}\in R^{M}$ is a weight vector, where $b_{i}>0$ indicates the importance of $i$ being covered in the summary. Our objective is 
 
-\begin{equation*}
-\min \tilde{\mathbf{c}}^T\tilde{\mathbf{x}}\textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}}\geq \mathbf{b}, \tilde{\mathbf{x}}\in \{0,1\}
-\end{equation*}
-
-\subsection{Methodology Overview}
-We first transform it to a standard form of bounded linear programming problem by making the following adjustments: $\mathbf{c}=[\tilde{\mathbf{c}},\mathbf{0}],\mathbf{x}=[\tilde{\mathbf{x}},\mathbf{z}]^T,\mathbf{A}=[\tilde{\mathbf{A}},-\mathbf{I}]$, where $\mathbf{I}$ is the $M\times M$ identity matrix. Therefore we have
-
-\begin{equation}
-\min \mathbf{cx} \textrm{ subject to } \mathbf{Ax} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1}
+\begin{equation}\label{equ:integerstatic}
+\min \tilde{\mathbf{c}}^T\tilde{\mathbf{x}}\textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}}\geq \mathbf{b}, \tilde{\mathbf{x}}\in \{0,1\}.
 \end{equation}
 
-We modify the LP so that there is an easy choice of basic solution. We start by solving
+\subsection{The Simplex Method}
+We transform the integer programming problem in Equ.~\ref{equ:integerstatic} to a bounded linear programming problem by making the following adjustments: $\mathbf{c}=[\tilde{\mathbf{c}},\mathbf{0}],\mathbf{x}=[\tilde{\mathbf{x}},\mathbf{z}]^T,\mathbf{A}=[\tilde{\mathbf{A}},-\mathbf{I}]$, where $\mathbf{I}$ is the $M\times M$ identity matrix. Therefore we have the following objective
 
-\begin{equation}
-\min \mathbf{e^{T}s} \textrm{ subject to } \mathbf{Ax} + \mathbf{Is} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1},\mathbf{s}\geq \mathbf{0}
+\begin{equation}\label{equ:linear}
+\min \mathbf{cx} \textrm{ subject to } \mathbf{Ax} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1}.
 \end{equation}
 
-where $\mathbf{e}$ is the vector of all ones, $\mathbf{s}$ are called artificial variables,and $b_{i}\geq \mathbf{0}$.
-To solve the above LP relaxation, we adopt the bounded simplex method. In each iterate, only $M$ variables are selected as the basic points. Suppose $\mathbf{A}_{,j}$ is the $j$th column, and the corresponding columns of basic variables in $\mathbf{A}$ are denoted as $\mathbf{A_B}$,others are denoted as $\mathbf{A_N}$. Non-basic variables are either at upper bound ($j \in U$) or at lower bound ($j\in L$).
+The linear programming problem in Equ.~\ref{equ:linear} can be solved by the simplex method. Each iterate in the simplex method is a basic feasible point that (1) it satisfies $\mathbf{Ax} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1}$ and (2) there exists three subsett $\mathcal{B,U.L}$ of the index set $\mathcal{A}=\{1,2,\cdots N\}$ such that $\mathcal{B}$ contains exactly $M$ indices, $\mathcal{A}=\mathcal{B}\cup \mathcal{U} \cup \mathcal{L}$ and $i \in \mathcal{U} \Rightarrow x_i=1,i \in \mathcal{L} \Rightarrow x_i=0$.
 
-Define $\mathbf{c^{'}}=[\mathbf{e},\mathbf{0}], \mathbf{x}^{'} = [\mathbf{x},\mathbf{s}]^T$ and $\mathbf{A}^{'} = [\mathbf{A},\mathbf{I}]$ so that the constraints of the modified LP can be written as $\mathbf{A}^{'}\mathbf{x}^{'} = \mathbf{b}, \mathbf{x}^{'} \geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1}$.
+The major issue at each simplex iteration is to decide which index to be removed from the basis $\mathcal{B}$ and replaced by another index outside the basis $\mathcal{B}$.  As the optimal is achieved when the KKT conditions are satisfied, in each simplex iteration first  a pricing step is conducted to check on the KKT conditions.  Let's compute $\mathbf{y} = {\mathbf{B}^T}^{-1}\mathbf{c_B}$, $\bar{c_j} = c_j - y^T\mathbf{A}_{,j}^{'}$. If $x_j = 0, \bar{c_j} > 0$ and $x_j = 1,\bar{c_j} < 0$,  the KKT conditions are satisfied and the problem is solved. Otherwise a pivoting operation is implemented to select entering and leaving indices. 
 
-Step 1: Let $\mathbf{B}$ be the indices of the artificial variables and set the all non-basic variables to be $x_j=0$. Then $\mathbf{B}$ is a basis,since the corresponding columns of $\mathbf{A_B^{'}}$ are $\mathbf{I}$, the identity,the corresponding basic feasible solution is $\mathbf{x} = \mathbf{0}, \mathbf{z} = \mathbf{b}$.
+We should keep in mind that the simplex iterations are run on basic feasible points. To obtain an easy start of basic feasible points, we solve the following linear programming problem.
 
-Step 2: Pricing. $\mathbf{y} = {\mathbf{B}^T}^{-1}\mathbf{e_B}$
+\begin{equation}\label{equ:linearphaseI}
+\min \mathbf{e^{T}s} \textrm{ subject to } \mathbf{Ax} + \mathbf{Is} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1},\mathbf{s}\geq \mathbf{0},
+\end{equation}
 
-Step 3: Compute $\bar{c_j} = c_j - y^T\mathbf{A}_{,j}^{'}$. If $x_j = 0, \bar{c_j} > 0$ and $x_j = 1,\bar{c_j} < 0$, then the problem is solved. Else pick $q$ the most contradictive variable, i.e. the most negative $\bar{c_q}$ for $x_q = 0$ as the entering index(step 4 in Algorithm 1).
+where $\mathbf{e}$ is the vector of all ones, $\mathbf{I}$ is a diagonal matrix whose diagonal elements are $I_{ij}=1$. $\mathbf{s}$ are called artificial variables. It is easy to see that the solution to Equ.~\ref{equ:linearphaseI} is a basic feasible point for Equ.~\ref{equ:linear}, if the objective $\mathbf{e^{T}s}=0 $. 
 
-Step 4: Choose the outing index(step 5 to step 27 in Algorithm 1) and update the basis and the value of variables.
+The remaining problem is that the solution we obtained for Equ.~\ref{equ:linear} are not integers. We therefore present to round the solutions by
 
-Step 5: If all artificial variables are non-basic or some artificial variables are in the basis but all $x_{z_i} = 0$ then go to Step 6,otherwise return to Step 2.
+\begin{equation}
+p(x_i=1)= x_i 
+\end{equation}
 
-Step 6: If some artificial variables are in the basis,remove them from basis. Change $\mathbf{c^{'}}=[\tilde{\mathbf{c}},\mathbf{0}]$ , repeat Step 2 to Step 4.
+%delete?
 
+To conclude this section, we present Algorithm.~\ref{alg:framework}
+
+\begin{algorithm}\label{alg:framework}
+\caption{The pseudo code of the framework for static summarization}
+\KwIn{$\mathbf{\tilde{c},b, \tilde{A}}$} 
+\KwOut{$\mathbf{x}$}
+
+Initialize $\mathbf{x}=\mathbf{0},\mathbf{s}=\mathbf{b}$\;
+Solve $\min \mathbf{e^{T}s} \textrm{ subject to } \mathbf{Ax} + \mathbf{Is} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1},\mathbf{s}\geq \mathbf{0}$ by simplex method\;
+Keep $\mathbf{x}$, set $\mathbf{c}=[\tilde{\mathbf{c}},\mathbf{0}],\mathbf{x}=[\tilde{\mathbf{x}},\mathbf{z}]^T,\mathbf{A}=[\tilde{\mathbf{A}},-\mathbf{I}]$ \;
+Solve $\min \mathbf{cx} \textrm{ subject to } \mathbf{Ax} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1}$ by simplex method\;
+Rounding $\mathbf{x}$\;
+%delete?
+\end{algorithm}
+
+
+
+\section{Dynamic Summarization}\label{sec:dynamic}
+
+\subsection{Problem Definition}
+%first show that we don't need A by proving the constraint 1 hold by itself for all scenarios (conflicting, outdate, better converage)
+\begin{equation}
+\min c_0x_0+c_1x_1\\
+s.t. \begin{bmatrix}
+A & D \\
+D^T & B
+\end{bmatrix}\begin{bmatrix}
+ x_0\\
+x_1
+\end{bmatrix}\geq \begin{bmatrix}
+b_0\\
+b_1
+\end{bmatrix}
+\end{equation}
+
+%check whether constraint 2 is satisfied, note that D is small due to the sparseness of x_0
+$D^Tx_0\geq b_1$
+
+%if b_1 largely not covered, outdated, change constraint
+
+
+%else implement simplex
+
+%if an index gets out, check if its conflicting by measuring structural similarity
+\subsection{Online Simplex Method}
 \begin{algorithm}
 \caption{the bounded simplex method}
 \KwIn{$\mathbf{c}=[\mathbf{e},\mathbf{0}], \mathbf{x}^{'} = [\mathbf{x},\mathbf{s}]^T$ and $\mathbf{A}^{'} = [\mathbf{A},\mathbf{I}]$}
@@ -122,32 +184,65 @@ Compute $\bar{c_j} = c_j - y^T\mathbf{A}_{,j}^{'}$\;
 \end{algorithm}
 
 
-\section{Update Summarization}
 
-%first show that we don't need A by proving the constraint 1 hold by itself for all scenarios (conflicting, outdate, better converage)
-\begin{equation}
-\min c_0x_0+c_1x_1\\
-s.t. \begin{bmatrix}
-A & D \\
-D^T & B
-\end{bmatrix}\begin{bmatrix}
- x_0\\
-x_1
-\end{bmatrix}\geq \begin{bmatrix}
-b_0\\
-b_1
-\end{bmatrix}
-\end{equation}
+\section{Inconsistency Detection}\label{sec:inconsistency}
 
-%check whether constraint 2 is satisfied, note that D is small due to the sparseness of x_0
-$D^Tx_0\geq b_1$
+\section{Experiment}\label{sec:experiment}
+\subsection{Experimental Setup}
+%Data set
+We use the xx data set~\cite{}. The corpus is comprised of 2 weeks (23th January 2011 until8th February) of sampled tweets from Twitter. Different types of tweets are presented, including repliesand retweets. The corpus is multilingual, including English, Japanese and so on. For the purpose of event summarization, we select 10 events and filter relevant tweets by xxx. More details of the data set are illustrated in Table ~\ref{}.
 
-%if b_1 largely not covered, outdated, change constraint
+\begin{table}[htp]
+\caption{Statistics of the data set}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+Event & Number of tweets & Time period & Average Length of tweets & Number of users & Number of terms
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}
+
+%Preprocessing
+In pre-processing Tweets2011 corpus, we do notremove stop-words. Instead, mentions (@somebody)are removed from the vocabulary. Non-English tweetscontaining less than one English word with morethan 2 characters are filtered. Explicit re-tweets withHTTP code 302 are filtered. Empty tweets and forbiddentweets with HTTP code 403 and 404 are alsofiltered. Porter stemmer is adopted in indexing.
+
+%Ground truth
+Ground truth For the 49 queries in Tweets2011 corpus,DPRF is utilized to retrieve 1,000 tweets, then8 students are invited to manually label 50 tweetsas event summarization for each query. For the 10queries inWeibo2012 corpus, again DPRF is utilized toretrieve 1,000 microblogs, then 10 students are invitedto manually label event summarization for each query
+
+%comparative methods
+The comparative methods are  state-of-the-art summarization methods. (1) ...
 
 
-%else implement simplex
+%Operating system
+We implemented all algorithms in C++ and all experiments have been executed on a serverwith an AMD Opteron Processor 280 2.40G Hz (4 cores)and main memory 8G bytes.
 
-%if an index gets out, check if its conflicting by measuring structural similarity
+\subsection{Summarization Performance}
+%goal
 
+%evaluation
+Evaluation The measurement is mainly based onRecall-Oriented Understudy for Gisting Evaluation(ROUGE) ? an evaluation toolkit for document summarization[23] which automatically determines thequality of a summary by comparing it with the humangenerated summaries through counting the numberof their overlapping textual units (e.g., n-gram, wordsequences, and etc.). In particular, F-measure scoresof ROUGE-2 and ROUGE-SU4 are presented for ourexperiments.
+
+
+
+%results figure
+
+
+\subsection{Inconsistency Detection Performance}
+%comparative methods
+In addition of the state-of-the-art summarization methods, for comparison on inconsistency detection, we adopted some naive methods
+
+%result table or figure
+\subsection{Efficiency Study}
+
+%goal
+
+%result figure
+
+\subsection{Effects of Parameters}
+
+%goal
+
+%result figure
+
+\section{Conclusion}\label{sec:conclusion}
 
 \end{document}
