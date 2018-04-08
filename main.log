@@ -1,17 +1,17 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  7 APR 2018 15:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2016.10.10)  8 APR 2018 16:08
 entering extended mode
- \write18 enabled.
+ restricted \write18 enabled.
  %&-line parsing enabled.
-**main.tex
+**./main.tex
 (./main.tex
-LaTeX2e <2017-04-15>
-Babel <3.10> and hyphenation patterns for 84 language(s) loaded.
+LaTeX2e <2016/03/31> patch level 3
+Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 (./llncs.cls
 Document Class: llncs 2017/09/04 v2.19 
  LaTeX document class for Lecture Notes in Computer Science
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/article.cls
+(f:/texlive/2016/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/size10.clo
+(f:/texlive/2016/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -26,8 +26,8 @@ File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/multicol.sty
-Package: multicol 2017/04/11 v1.8q multicolumn formatting (FMi)
+(f:/texlive/2016/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2016/04/07 v1.8p multicolumn formatting (FMi)
 \c@tracingmulticols=\count87
 \mult@box=\box26
 \multicol@leftmargin=\dimen103
@@ -75,10 +75,10 @@ Package: multicol 2017/04/11 v1.8q multicolumn formatting (FMi)
 \colbreak@box=\box51
 \mc@col@check@num=\count95
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/aliascnt.sty
+(f:/texlive/2016/texmf-dist/tex/latex/oberdiek/aliascnt.sty
 Package: aliascnt 2016/05/16 v1.4 Alias counters (HO)
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/carlisle/remreset.sty))
+(f:/texlive/2016/texmf-dist/tex/latex/carlisle/remreset.sty))
 \c@chapter=\count96
 LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 362.
 LaTeX Font Info:    Redeclaring math symbol \Delta on input line 363.
@@ -130,41 +130,41 @@ LaTeX Font Info:    Redeclaring math symbol \Omega on input line 372.
 \c@remark=\count115
 \headlineindent=\dimen124
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2016/11/05 v2.16a AMS math features
+(f:/texlive/2016/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2016/06/28 v2.15d AMS math features
 \@mathmargin=\skip45
 
 For additional information on amsmath, use the `?' option.
-(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty
+(f:/texlive/2016/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01 AMS text
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsgen.sty
+(f:/texlive/2016/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks18
 \ex@=\dimen125
 ))
-(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty
+(f:/texlive/2016/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen126
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty
+(f:/texlive/2016/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
 \inf@bad=\count116
-LaTeX Info: Redefining \frac on input line 213.
+LaTeX Info: Redefining \frac on input line 199.
 \uproot@=\count117
 \leftroot@=\count118
-LaTeX Info: Redefining \overline on input line 375.
+LaTeX Info: Redefining \overline on input line 297.
 \classnum@=\count119
 \DOTSCASE@=\count120
-LaTeX Info: Redefining \ldots on input line 472.
-LaTeX Info: Redefining \dots on input line 475.
-LaTeX Info: Redefining \cdots on input line 596.
+LaTeX Info: Redefining \ldots on input line 394.
+LaTeX Info: Redefining \dots on input line 397.
+LaTeX Info: Redefining \cdots on input line 518.
 \Mathstrutbox@=\box54
 \strutbox@=\box55
 \big@size=\dimen127
-LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 634.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
 
 
 Package amsmath Warning: Unable to redefine math accent \vec.
@@ -189,28 +189,185 @@ Package amsmath Warning: Unable to redefine math accent \vec.
 \multlinegap=\skip46
 \multlinetaggap=\skip47
 \mathdisplay@stack=\toks22
-LaTeX Info: Redefining \[ on input line 2817.
-LaTeX Info: Redefining \] on input line 2818.
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+LaTeX Info: Redefining \[ on input line 2739.
+LaTeX Info: Redefining \] on input line 2740.
+) (f:/texlive/2016/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
-Package: algorithm2e 2013/01/06 v5.00 algorithms environments
-\c@AlgoLine=\count128
+(f:/texlive/2016/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ifthen.sty
+(f:/texlive/2016/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks23
+)
+(f:/texlive/2016/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2016/07/10 v1.0t Standard LaTeX Graphics (DPC,SPQR)
+
+(f:/texlive/2016/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(f:/texlive/2016/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+(f:/texlive/2016/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2016/07/10 v0.06j Graphics/color for pdfTeX
+
+(f:/texlive/2016/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(f:/texlive/2016/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count128
+))
+\Gin@req@height=\dimen134
+\Gin@req@width=\dimen135
+)
+(f:/texlive/2016/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2016/05/15 v2.6 Conversion with epstopdf on the fly (HO)
+
+(f:/texlive/2016/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(f:/texlive/2016/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+(f:/texlive/2016/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+))
+(f:/texlive/2016/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+(f:/texlive/2016/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+(f:/texlive/2016/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+(f:/texlive/2016/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+(f:/texlive/2016/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2016/05/21 v0.22 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(f:/texlive/2016/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2016/05/14 v3.1 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+
+(f:/texlive/2016/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)))
+(f:/texlive/2016/texmf-dist/tex/latex/subfigure/subfigure.sty
+Package: subfigure 2002/03/15 v2.1.5 subfigure package
+\subfigtopskip=\skip48
+\subfigcapskip=\skip49
+\subfigcaptopadj=\dimen136
+\subfigbottomskip=\skip50
+\subfigcapmargin=\dimen137
+\subfiglabelskip=\skip51
+\c@subfigure=\count129
+\c@lofdepth=\count130
+\c@subtable=\count131
+\c@lotdepth=\count132
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(f:/texlive/2016/texmf-dist/tex/latex/subfigure/subfigure.cfg)
+\subfig@top=\skip52
+\subfig@bottom=\skip53
+)
+(f:/texlive/2016/texmf-dist/tex/latex/floatrow/floatrow.sty
+Package: floatrow 2008/08/02 v0.3b floatrow: float package extension
+
+(f:/texlive/2016/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen138
+\captionmargin@=\dimen139
+\captionwidth=\dimen140
+\caption@tempdima=\dimen141
+\caption@indent=\dimen142
+\caption@parindent=\dimen143
+\caption@hangindent=\dimen144
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+)
+\c@float@type=\count133
+\float@exts=\toks24
+\float@box=\box56
+\@floatcapt=\box57
+Package floatrow Info: Modified float package code loaded on input line 455.
+Package floatrow Info: Modified rotfloat package code loaded on input line 473.
+
+\FR@everyfloat=\toks25
+\flrow@foot=\insert199
+\FB@wd=\dimen145
+\FBo@wd=\dimen146
+\FBc@wd=\dimen147
+\FBo@ht=\skip54
+\FBc@ht=\skip55
+\FBf@ht=\skip56
+\FBo@max=\skip57
+\FBc@max=\skip58
+\FBf@max=\skip59
+\c@FBl@b=\count134
+\floatbox@depth=\count135
+\c@FRobj=\count136
+\c@FRsobj=\count137
+\Xhsize=\skip60
+\sXhsize=\skip61
+\Zhsize=\skip62
+\sZhsize=\skip63
+\flrow@rowbox=\box58
+\FR@Zunitlength=\dimen148
+\c@FBcnt=\count138
+\FPOScnt=\count139
+\LTleft=\skip64
+\LTright=\skip65
+\LTleft=\skip66
+\LTright=\skip67
+\flrow@types=\toks26
+)
+(f:/texlive/2016/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2013/01/06 v5.00 algorithms environments
+\c@AlgoLine=\count140
+
+(f:/texlive/2016/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\algocf@hangindent=\skip48
+\algocf@hangindent=\skip68
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/xspace.sty
+(f:/texlive/2016/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/relsize/relsize.sty
+(f:/texlive/2016/texmf-dist/tex/latex/relsize/relsize.sty
 Package: relsize 2013/03/29 ver 4.1
 )
 ********************************************************
@@ -220,92 +377,235 @@ Package `algorithm2e' Release 5.1 -- october 19 2015 --
 subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 - Author: Christophe Fiorio (christophe.fiorio@umontpellier.fr)
 ********************************************************
-\skiptotal=\skip49
-\skiplinenumber=\skip50
-\skiprule=\skip51
-\skiphlne=\skip52
-\skiptext=\skip53
-\skiplength=\skip54
-\algomargin=\skip55
-\skipalgocfslide=\skip56
-\algowidth=\dimen134
-\inoutsize=\dimen135
-\inoutindent=\dimen136
-\interspacetitleruled=\dimen137
-\interspacealgoruled=\dimen138
-\interspacetitleboxruled=\dimen139
-\algocf@ruledwidth=\skip57
-\algocf@inoutbox=\box56
-\algocf@inputbox=\box57
-\AlCapSkip=\skip58
-\AlCapHSkip=\skip59
-\algoskipindent=\skip60
-\algocf@nlbox=\box58
-\algocf@hangingbox=\box59
-\algocf@untilbox=\box60
-\algocf@skipuntil=\skip61
-\algocf@capbox=\box61
-\algoheightruledefault=\skip62
-\algoheightrule=\skip63
-\algotitleheightruledefault=\skip64
-\algotitleheightrule=\skip65
-\c@algocfline=\count129
-\c@algocfproc=\count130
-\c@algocf=\count131
-\algocf@algoframe=\box62
-\algocf@algobox=\box63
+\skiptotal=\skip69
+\skiplinenumber=\skip70
+\skiprule=\skip71
+\skiphlne=\skip72
+\skiptext=\skip73
+\skiplength=\skip74
+\algomargin=\skip75
+\skipalgocfslide=\skip76
+\algowidth=\dimen149
+\inoutsize=\dimen150
+\inoutindent=\dimen151
+\interspacetitleruled=\dimen152
+\interspacealgoruled=\dimen153
+\interspacetitleboxruled=\dimen154
+\algocf@ruledwidth=\skip77
+\algocf@inoutbox=\box59
+\algocf@inputbox=\box60
+\AlCapSkip=\skip78
+\AlCapHSkip=\skip79
+\algoskipindent=\skip80
+\algocf@nlbox=\box61
+\algocf@hangingbox=\box62
+\algocf@untilbox=\box63
+\algocf@skipuntil=\skip81
+\algocf@capbox=\box64
+\algoheightruledefault=\skip82
+\algoheightrule=\skip83
+\algotitleheightruledefault=\skip84
+\algotitleheightrule=\skip85
+\c@algocfline=\count141
+\c@algocfproc=\count142
+\c@algocf=\count143
+\algocf@algoframe=\box65
+\algocf@algobox=\box66
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Try loading font information for U+msa on input line 14.
- (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+ (f:/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count144
+\scratchdimen=\dimen155
+\scratchbox=\box67
+\nofMPsegments=\count145
+\nofMParguments=\count146
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count147
+\MPscratchDim=\dimen156
+\MPnumerator=\count148
+\makeMPintoPDFobject=\count149
+\everyMPtoPDFconversion=\toks28
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+ (f:/texlive/2016/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+(f:/texlive/2016/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 20.
+
+(f:/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 14.
+LaTeX Font Info:    Try loading font information for U+msb on input line 20.
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
+(f:/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
-LaTeX Warning: Citation `kwak2010twitter' on page 1 undefined on input line 19.
+LaTeX Warning: Citation `kwak2010twitter' on page 1 undefined on input line 25.
 
 
 
-Overfull \hbox (4.71042pt too wide) in paragraph at lines 21--22
+Overfull \hbox (4.71042pt too wide) in paragraph at lines 27--28
 \OT1/cmr/m/n/10 sum-ma-riza-tion from tweets []. Most pre-vi-ous work are based
  on ex-trac-tive method,
  []
 
 [1
 
-{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+{f:/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 Underfull \vbox (badness 1102) has occurred while \output is active []
 
  [2]
 [3] [4]
 
-LaTeX Warning: Reference `' on page 5 undefined on input line 195.
+LaTeX Warning: Reference `table:static' on page 5 undefined on input line 200.
 
 
-Overfull \hbox (52.96877pt too wide) in paragraph at lines 200--203
+Overfull \hbox (68.20273pt too wide) in paragraph at lines 205--230
  [] 
  []
 
-[5] [6] [7] (./main.aux)
+[5] [6]
+Package epstopdf Info: Source file: <rouge.eps>
+(epstopdf)                    date: 2018-04-08 00:05:56
+(epstopdf)                    size: 37109 bytes
+(epstopdf)             Output file: <rouge-eps-converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=rouge-eps-converted-to.pdf
+ rouge.eps>
+(epstopdf)             \includegraphics on input line 266.
+runsystem(repstopdf --outfile=rouge-eps-converted-to.pdf rouge.eps)...executed 
+safely (allowed).
+
+Package epstopdf Info: Result file: <rouge-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-08 16:08:29
+(epstopdf)                    size: 21044 bytes.
+ <rouge-eps-converted-to.pdf, id=45, 557.08125pt x 306.14375pt>
+File: rouge-eps-converted-to.pdf Graphic file (type pdf)
+
+<use rouge-eps-converted-to.pdf>
+Package pdftex.def Info: rouge-eps-converted-to.pdf used on input line 266.
+(pdftex.def)             Requested size: 334.25133pt x 183.68765pt.
+
+Overfull \hbox (40.54611pt too wide) detected at line 434
+ [] 
+ []
+
+
+Underfull \vbox (badness 7486) has occurred while \output is active []
+
+ [7 <./rouge-eps-converted-to.pdf>] [8]
+Package epstopdf Info: Source file: <log_time0.eps>
+(epstopdf)                    date: 2018-04-08 00:05:56
+(epstopdf)                    size: 35541 bytes
+(epstopdf)             Output file: <log_time0-eps-converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=log_time0-eps-converted-to
+.pdf log_time0.eps>
+(epstopdf)             \includegraphics on input line 477.
+runsystem(repstopdf --outfile=log_time0-eps-converted-to.pdf log_time0.eps)...e
+xecuted safely (allowed).
+
+Package epstopdf Info: Result file: <log_time0-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-08 16:08:30
+(epstopdf)                    size: 19489 bytes.
+
+<log_time0-eps-converted-to.pdf, id=99, 553.06625pt x 490.83376pt>
+File: log_time0-eps-converted-to.pdf Graphic file (type pdf)
+
+<use log_time0-eps-converted-to.pdf>
+Package pdftex.def Info: log_time0-eps-converted-to.pdf used on input line 477.
+
+(pdftex.def)             Requested size: 276.53244pt x 245.41628pt.
+Package epstopdf Info: Source file: <log_time1.eps>
+(epstopdf)                    date: 2018-04-08 00:05:56
+(epstopdf)                    size: 45448 bytes
+(epstopdf)             Output file: <log_time1-eps-converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=log_time1-eps-converted-to
+.pdf log_time1.eps>
+(epstopdf)             \includegraphics on input line 484.
+runsystem(repstopdf --outfile=log_time1-eps-converted-to.pdf log_time1.eps)...e
+xecuted safely (allowed).
+
+Package epstopdf Info: Result file: <log_time1-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-08 16:08:32
+(epstopdf)                    size: 21633 bytes.
+
+<log_time1-eps-converted-to.pdf, id=100, 553.06625pt x 490.83376pt>
+File: log_time1-eps-converted-to.pdf Graphic file (type pdf)
+
+<use log_time1-eps-converted-to.pdf>
+Package pdftex.def Info: log_time1-eps-converted-to.pdf used on input line 484.
+
+(pdftex.def)             Requested size: 276.53244pt x 245.41628pt.
+Package epstopdf Info: Source file: <summary-timecost.eps>
+(epstopdf)                    date: 2018-04-08 00:05:56
+(epstopdf)                    size: 50324 bytes
+(epstopdf)             Output file: <summary-timecost-eps-converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=summary-timecost-eps-conve
+rted-to.pdf summary-timecost.eps>
+(epstopdf)             \includegraphics on input line 496.
+runsystem(repstopdf --outfile=summary-timecost-eps-converted-to.pdf summary-tim
+ecost.eps)...executed safely (allowed).
+
+Package epstopdf Info: Result file: <summary-timecost-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-08 16:08:34
+(epstopdf)                    size: 35979 bytes.
+
+<summary-timecost-eps-converted-to.pdf, id=101, 650.43pt x 539.01375pt>
+File: summary-timecost-eps-converted-to.pdf Graphic file (type pdf)
+
+<use summary-timecost-eps-converted-to.pdf>
+Package pdftex.def Info: summary-timecost-eps-converted-to.pdf used on input li
+ne 496.
+(pdftex.def)             Requested size: 325.2142pt x 269.50621pt.
+Package epstopdf Info: Source file: <window-timecost.eps>
+(epstopdf)                    date: 2018-04-08 00:05:56
+(epstopdf)                    size: 49599 bytes
+(epstopdf)             Output file: <window-timecost-eps-converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=window-timecost-eps-conver
+ted-to.pdf window-timecost.eps>
+(epstopdf)             \includegraphics on input line 502.
+runsystem(repstopdf --outfile=window-timecost-eps-converted-to.pdf window-timec
+ost.eps)...executed safely (allowed).
+
+Package epstopdf Info: Result file: <window-timecost-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-08 16:08:36
+(epstopdf)                    size: 35618 bytes.
+
+<window-timecost-eps-converted-to.pdf, id=102, 650.43pt x 539.01375pt>
+File: window-timecost-eps-converted-to.pdf Graphic file (type pdf)
+
+<use window-timecost-eps-converted-to.pdf>
+Package pdftex.def Info: window-timecost-eps-converted-to.pdf used on input lin
+e 502.
+(pdftex.def)             Requested size: 325.2142pt x 269.50621pt.
+ [9] [10 <./log_time0-eps-converted-to.pdf> <./log_time1-eps-converted-to.pdf>]
+ [11 <./summary-timecost-eps-converted-to.pdf> <./window-timecost-eps-converted
+-to.pdf>] (./main.aux)
 
 LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  )
 (\end occurred inside a group at level 1)
@@ -313,41 +613,39 @@ LaTeX Warning: There were undefined references.
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 2336 strings out of 492995
- 31478 string characters out of 6132704
- 117580 words of memory out of 5000000
- 5897 multiletter control sequences out of 15000+600000
+ 4955 strings out of 493013
+ 72587 string characters out of 6136992
+ 181734 words of memory out of 5000000
+ 8417 multiletter control sequences out of 15000+600000
  11710 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,17n,34p,1420b,1493s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmbx5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmbx6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-bx7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
-9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10
-.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cm
-ex9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5
-.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.p
-fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
-></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><
-/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
-sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/
-local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loc
-al/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/
-texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/t
-exlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/tex
-live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texli
-ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive
-/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2
-017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/201
-7/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (7 pages, 262512 bytes).
+ 42i,18n,38p,1422b,1965s stack positions out of 5000i,500n,10000p,200000b,80000s
+<f:/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
+10.pfb><f:/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><f
+:/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb><f:/texlive/
+2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb><f:/texlive/2016/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><f:/texlive/2016/texmf-dist/font
+s/type1/public/amsfonts/cm/cmbx9.pfb><f:/texlive/2016/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmex10.pfb><f:/texlive/2016/texmf-dist/fonts/type1/public/amsf
+onts/cmextra/cmex9.pfb><f:/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi10.pfb><f:/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.
+pfb><f:/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><f:/te
+xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><f:/texlive/2016
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><f:/texlive/2016/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr10.pfb><f:/texlive/2016/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr6.pfb><f:/texlive/2016/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr7.pfb><f:/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr9.pfb><f:/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+><f:/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><f:/texli
+ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><f:/texlive/2016/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><f:/texlive/2016/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy9.pfb><f:/texlive/2016/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmti9.pfb><f:/texlive/2016/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmtt9.pfb>
+Output written on main.pdf (11 pages, 388372 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
- 90 compressed objects within 1 object stream
+ 382 PDF objects out of 1000 (max. 8388607)
+ 132 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
