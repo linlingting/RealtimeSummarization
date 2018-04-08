@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2016.10.10)  8 APR 2018 16:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2016.10.10)  8 APR 2018 17:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -411,7 +411,20 @@ subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 \c@algocf=\count143
 \algocf@algoframe=\box65
 \algocf@algobox=\box66
-) (./main.aux)
+) (./main.aux
+
+LaTeX Warning: Label `default' multiply defined.
+
+
+LaTeX Warning: Label `default' multiply defined.
+
+
+LaTeX Warning: Label `default' multiply defined.
+
+
+LaTeX Warning: Label `default' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
@@ -460,11 +473,6 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 20.
 (f:/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-
-LaTeX Warning: Citation `kwak2010twitter' on page 1 undefined on input line 25.
-
-
-
 Overfull \hbox (4.71042pt too wide) in paragraph at lines 27--28
 \OT1/cmr/m/n/10 sum-ma-riza-tion from tweets []. Most pre-vi-ous work are based
  on ex-trac-tive method,
@@ -476,136 +484,125 @@ Overfull \hbox (4.71042pt too wide) in paragraph at lines 27--28
 Underfull \vbox (badness 1102) has occurred while \output is active []
 
  [2]
-[3] [4]
+Overfull \hbox (2.87712pt too wide) in paragraph at lines 63--64
+\OT1/cmr/m/n/10 sum-ma-riza-tion. We start by re-view-ing the com-mon ap-proach
+es in multi-document
+ []
 
-LaTeX Warning: Reference `table:static' on page 5 undefined on input line 200.
+
+LaTeX Warning: Citation `Kumar2004Graph' on page 3 undefined on input line 68.
 
 
-Overfull \hbox (68.20273pt too wide) in paragraph at lines 205--230
+LaTeX Warning: Citation `Li2011MSSF' on page 3 undefined on input line 68.
+
+[3] [4] [5]
+Overfull \hbox (68.20273pt too wide) in paragraph at lines 223--248
  [] 
  []
 
-[5] [6]
+[6] [7]
 Package epstopdf Info: Source file: <rouge.eps>
 (epstopdf)                    date: 2018-04-08 00:05:56
 (epstopdf)                    size: 37109 bytes
 (epstopdf)             Output file: <rouge-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-08 16:08:29
+(epstopdf)                    size: 21044 bytes
 (epstopdf)             Command: <repstopdf --outfile=rouge-eps-converted-to.pdf
  rouge.eps>
-(epstopdf)             \includegraphics on input line 266.
-runsystem(repstopdf --outfile=rouge-eps-converted-to.pdf rouge.eps)...executed 
-safely (allowed).
-
-Package epstopdf Info: Result file: <rouge-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-04-08 16:08:29
-(epstopdf)                    size: 21044 bytes.
- <rouge-eps-converted-to.pdf, id=45, 557.08125pt x 306.14375pt>
+(epstopdf)             \includegraphics on input line 284.
+Package epstopdf Info: Output file is already uptodate.
+ <rouge-eps-converted-to.pdf, id=49, 557.08125pt x 306.14375pt>
 File: rouge-eps-converted-to.pdf Graphic file (type pdf)
 
 <use rouge-eps-converted-to.pdf>
-Package pdftex.def Info: rouge-eps-converted-to.pdf used on input line 266.
+Package pdftex.def Info: rouge-eps-converted-to.pdf used on input line 284.
 (pdftex.def)             Requested size: 334.25133pt x 183.68765pt.
 
-Overfull \hbox (40.54611pt too wide) detected at line 434
+Overfull \hbox (40.54611pt too wide) detected at line 452
  [] 
  []
 
 
 Underfull \vbox (badness 7486) has occurred while \output is active []
 
- [7 <./rouge-eps-converted-to.pdf>] [8]
+ [8 <./rouge-eps-converted-to.pdf>] [9]
 Package epstopdf Info: Source file: <log_time0.eps>
 (epstopdf)                    date: 2018-04-08 00:05:56
 (epstopdf)                    size: 35541 bytes
 (epstopdf)             Output file: <log_time0-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-08 16:08:30
+(epstopdf)                    size: 19489 bytes
 (epstopdf)             Command: <repstopdf --outfile=log_time0-eps-converted-to
 .pdf log_time0.eps>
-(epstopdf)             \includegraphics on input line 477.
-runsystem(repstopdf --outfile=log_time0-eps-converted-to.pdf log_time0.eps)...e
-xecuted safely (allowed).
+(epstopdf)             \includegraphics on input line 495.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <log_time0-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-04-08 16:08:30
-(epstopdf)                    size: 19489 bytes.
-
-<log_time0-eps-converted-to.pdf, id=99, 553.06625pt x 490.83376pt>
+<log_time0-eps-converted-to.pdf, id=102, 553.06625pt x 490.83376pt>
 File: log_time0-eps-converted-to.pdf Graphic file (type pdf)
 
 <use log_time0-eps-converted-to.pdf>
-Package pdftex.def Info: log_time0-eps-converted-to.pdf used on input line 477.
+Package pdftex.def Info: log_time0-eps-converted-to.pdf used on input line 495.
 
 (pdftex.def)             Requested size: 276.53244pt x 245.41628pt.
 Package epstopdf Info: Source file: <log_time1.eps>
 (epstopdf)                    date: 2018-04-08 00:05:56
 (epstopdf)                    size: 45448 bytes
 (epstopdf)             Output file: <log_time1-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-08 16:08:32
+(epstopdf)                    size: 21633 bytes
 (epstopdf)             Command: <repstopdf --outfile=log_time1-eps-converted-to
 .pdf log_time1.eps>
-(epstopdf)             \includegraphics on input line 484.
-runsystem(repstopdf --outfile=log_time1-eps-converted-to.pdf log_time1.eps)...e
-xecuted safely (allowed).
+(epstopdf)             \includegraphics on input line 502.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <log_time1-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-04-08 16:08:32
-(epstopdf)                    size: 21633 bytes.
-
-<log_time1-eps-converted-to.pdf, id=100, 553.06625pt x 490.83376pt>
+<log_time1-eps-converted-to.pdf, id=103, 553.06625pt x 490.83376pt>
 File: log_time1-eps-converted-to.pdf Graphic file (type pdf)
 
 <use log_time1-eps-converted-to.pdf>
-Package pdftex.def Info: log_time1-eps-converted-to.pdf used on input line 484.
+Package pdftex.def Info: log_time1-eps-converted-to.pdf used on input line 502.
 
 (pdftex.def)             Requested size: 276.53244pt x 245.41628pt.
 Package epstopdf Info: Source file: <summary-timecost.eps>
 (epstopdf)                    date: 2018-04-08 00:05:56
 (epstopdf)                    size: 50324 bytes
 (epstopdf)             Output file: <summary-timecost-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-08 16:08:34
+(epstopdf)                    size: 35979 bytes
 (epstopdf)             Command: <repstopdf --outfile=summary-timecost-eps-conve
 rted-to.pdf summary-timecost.eps>
-(epstopdf)             \includegraphics on input line 496.
-runsystem(repstopdf --outfile=summary-timecost-eps-converted-to.pdf summary-tim
-ecost.eps)...executed safely (allowed).
+(epstopdf)             \includegraphics on input line 514.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <summary-timecost-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-04-08 16:08:34
-(epstopdf)                    size: 35979 bytes.
-
-<summary-timecost-eps-converted-to.pdf, id=101, 650.43pt x 539.01375pt>
+<summary-timecost-eps-converted-to.pdf, id=104, 650.43pt x 539.01375pt>
 File: summary-timecost-eps-converted-to.pdf Graphic file (type pdf)
 
 <use summary-timecost-eps-converted-to.pdf>
 Package pdftex.def Info: summary-timecost-eps-converted-to.pdf used on input li
-ne 496.
+ne 514.
 (pdftex.def)             Requested size: 325.2142pt x 269.50621pt.
 Package epstopdf Info: Source file: <window-timecost.eps>
 (epstopdf)                    date: 2018-04-08 00:05:56
 (epstopdf)                    size: 49599 bytes
 (epstopdf)             Output file: <window-timecost-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-08 16:08:36
+(epstopdf)                    size: 35618 bytes
 (epstopdf)             Command: <repstopdf --outfile=window-timecost-eps-conver
 ted-to.pdf window-timecost.eps>
-(epstopdf)             \includegraphics on input line 502.
-runsystem(repstopdf --outfile=window-timecost-eps-converted-to.pdf window-timec
-ost.eps)...executed safely (allowed).
+(epstopdf)             \includegraphics on input line 520.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <window-timecost-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-04-08 16:08:36
-(epstopdf)                    size: 35618 bytes.
-
-<window-timecost-eps-converted-to.pdf, id=102, 650.43pt x 539.01375pt>
+<window-timecost-eps-converted-to.pdf, id=105, 650.43pt x 539.01375pt>
 File: window-timecost-eps-converted-to.pdf Graphic file (type pdf)
 
 <use window-timecost-eps-converted-to.pdf>
 Package pdftex.def Info: window-timecost-eps-converted-to.pdf used on input lin
-e 502.
+e 520.
 (pdftex.def)             Requested size: 325.2142pt x 269.50621pt.
- [9] [10 <./log_time0-eps-converted-to.pdf> <./log_time1-eps-converted-to.pdf>]
- [11 <./summary-timecost-eps-converted-to.pdf> <./window-timecost-eps-converted
--to.pdf>] (./main.aux)
+ [10] [11 <./log_time0-eps-converted-to.pdf> <./log_time1-eps-converted-to.pdf>
+] [12 <./summary-timecost-eps-converted-to.pdf> <./window-timecost-eps-converte
+d-to.pdf>] [13] [14] (./main.aux)
 
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  )
 (\end occurred inside a group at level 1)
@@ -613,10 +610,10 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 4955 strings out of 493013
- 72587 string characters out of 6136992
- 181734 words of memory out of 5000000
- 8417 multiletter control sequences out of 15000+600000
+ 4977 strings out of 493013
+ 73026 string characters out of 6136992
+ 181935 words of memory out of 5000000
+ 8439 multiletter control sequences out of 15000+600000
  11710 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,18n,38p,1422b,1965s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -642,10 +639,10 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><f:/texlive/2016/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmsy9.pfb><f:/texlive/2016/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmti9.pfb><f:/texlive/2016/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmtt9.pfb>
-Output written on main.pdf (11 pages, 388372 bytes).
+Output written on main.pdf (14 pages, 409953 bytes).
 PDF statistics:
- 382 PDF objects out of 1000 (max. 8388607)
- 132 compressed objects within 2 object streams
+ 392 PDF objects out of 1000 (max. 8388607)
+ 139 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

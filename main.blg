@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2016/W32TeX)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: main.aux
+The style file: abbrv.bst
+Database file #1: D:/MyRefOld/MyRef/reference.bib
+Warning--I didn't find a database entry for ""
+Warning--I didn't find a database entry for "Kumar2004Graph"
+Warning--I didn't find a database entry for "Li2011MSSF"
+You've used 20 entries,
+            2118 wiz_defined-function locations,
+            652 strings with 9083 characters,
+and the built_in function-call counts, 10386 in all, are:
+= -- 1116
+> -- 460
+< -- 19
++ -- 180
+- -- 160
+* -- 706
+:= -- 1543
+add.period$ -- 79
+call.type$ -- 20
+change.case$ -- 140
+chr.to.int$ -- 0
+cite$ -- 20
+duplicate$ -- 443
+empty$ -- 772
+format.name$ -- 160
+if$ -- 2354
+int.to.chr$ -- 0
+int.to.str$ -- 20
+missing$ -- 20
+newline$ -- 104
+num.names$ -- 40
+pop$ -- 149
+preamble$ -- 1
+purify$ -- 120
+quote$ -- 0
+skip$ -- 362
+stack$ -- 0
+substring$ -- 719
+swap$ -- 191
+text.length$ -- 19
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 80
+warning$ -- 0
+while$ -- 95
+width$ -- 22
+write$ -- 272
+(There were 3 warnings)

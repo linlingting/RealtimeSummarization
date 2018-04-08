@@ -60,9 +60,27 @@ Our contributions are three folds. (1) The integrity of event summary is a relat
 This paper is organized as follows. We briefly survey the related work in Sec.~\ref{sec:related}. In Sec.~\ref{sec:static}, we first introduce the idea of modeling a summarization problem as an integer programming problem and the standard simplex procedure to solve the relaxed linear programming problem. In Sec.~\ref{sec:dynamic}, we give the problem definition for realtime event summarization given a small batch of new tweets and the modified simplex solution. In Sec.~\ref{sec:inconsistency}, we describe the inconsistency detection strategy. We present and analyze the experimental results on a real data set in Sec.~\ref{sec:experiment}. We conclude our work and suggest future directions in Sec.~\ref{sec:conclusion}.
 
 \section{Related Work}\label{sec:related}
-%tweet summarization
+Tweet summarization belongs to the more general category of multi-document summarization. We start by reviewing the common approaches in multi-document summarization. Then we move on to describe the recent reseach trend of tweet summarization.
 
-%Event summarization
+\subsection{Multi-document Summarization}
+%first paragraph: multi document summarization
+%??LPR, SNMF??
+Multi-document summarization conveys the main and most important meaning of several documents. There are generally two types of summarization techniques. One type is extraction-based summarization, which extracts objects from the entire collection and combines the objects into a summary without modifying the objects themselves. The other type is abstraction-based summarization which rephrases the source document. The majority of summarization systems are extractive. The extracted objects are often sentences. The selection is usually based on the representativeness of sentences, i.e. with significant frequency~\cite{Yih2007Multi-document}, or is a structural centroid in a sentence graph~\cite{Kumar2004Graph,Lin2012Generating}, or is considered important by a submodularity function~\cite{Li2011MSSF}. 
+
+%second paragraph: event summarization 
+Recently, a number of studies devote to summarizing documents related to events, mostly news articles. In~\cite{Lin2008Storyline-based} a main theme is extracted by selecting representative sentences in each time segment of the event. ETS~\cite{Wang2009Evolutionary} returns the evolution skeleton along the timeline by extracting representative and discriminative sentences at each phase. In~\cite{Yan2011Evolutionary} representative sentences are chosen based on relevance, coverage, coherence and cross-date diversity.
+
+
+\subsection{Tweet Summarization}
+%first paragraph: tweet summarization
+The emergence of Twitter motivates recent research works on summarizing microblogging contents. Tweet summarization systems are successfully applied in entity-centric opinion summarization~\cite{Meng2012Entitycentric}, personal summarization of interesting content~\cite{Ren2013Personalized,Chin2017TOTEM}, search results grouping \cite{Mathioudakis2010TwitterMonitor}, and summarizing tweets for natural or social events~\cite{Takamura2011Summarizing,Lin2012Generating,Rudra2015Extracting,Shou2013Sumblr,Liu2016LEDS,Gillani2017Post,Zubiaga2012Towards}.
+
+%realtime
+At the algorithm level, tweet summarization also use extractive and abstractive methods. Except a few works which are based on abstractive method~\cite{Sharifi2010Summarizing}, most tweet summarization methods rank and select the most representative tweets. A few recent works start to improve general multi-document summarization methods for better efficiency. In~\cite{Shou2013Sumblr}, an incremental clustering method is presented. In ~\cite{Zubiaga2012Towards} the selection range is shrinked by detecting sub-events and selecting one sentence with maximal similarity to any new sub event.
+
+% inconsistency
+To achieve a better performance, the noisy and social nature of microblogs must be taken into consideration. Most tweet summarization systems will identify influential tweets~\cite{Hannon2010Recommending},  promote most recent tweet~\cite{Efron2011Estimation}, and circumnavigate spam and conversational posts~\cite{Gillani2017Post}. However, the integrity of summary has not yet been fully studied. The work that is most related to ours is the 
+classification and summarization of situational information in~\cite{Rudra2015Extracting,Rudra2016Summarizing}. However they do not explicitly identify inconsistency, and they simply provide all versions of inconsistent information.
 
 
 \section{Static Summarization}\label{sec:static}
@@ -504,5 +522,148 @@ In addition of the state-of-the-art summarization methods, for comparison on inc
 \end{figure}
 
 \section{Conclusion}\label{sec:conclusion}
+\begin{thebibliography}{10}
+
+\bibitem{Chin2017TOTEM}
+J.~Y. Chin, S.~S. Bhowmick, and A.~Jatowt.
+\newblock Totem: Personal tweets summarization on mobile devices.
+\newblock In {\em Proceedings of the 40th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval}, SIGIR '17, pages
+  1305--1308, New York, NY, USA, 2017. ACM.
+
+\bibitem{Efron2011Estimation}
+M.~Efron and G.~Golovchinsky.
+\newblock Estimation methods for ranking recent information.
+\newblock In {\em Proceedings of the 34th international ACM SIGIR conference on
+  Research and development in Information}, SIGIR '11, pages 495--504, New
+  York, NY, USA, 2011. ACM.
+
+\bibitem{Gillani2017Post}
+M.~Gillani, M.~U. Ilyas, S.~Saleh, J.~S. Alowibdi, N.~Aljohani, and F.~S.
+  Alotaibi.
+\newblock Post summarization of microblogs of sporting events.
+\newblock In {\em Proceedings of the 26th International Conference on World
+  Wide Web Companion}, WWW '17 Companion, pages 59--68, Republic and Canton of
+  Geneva, Switzerland, 2017. International World Wide Web Conferences Steering
+  Committee.
+
+\bibitem{Hannon2010Recommending}
+J.~Hannon, M.~Bennett, and B.~Smyth.
+\newblock Recommending twitter users to follow using content and collaborative
+  filtering approaches.
+\newblock In {\em Proceedings of the fourth ACM conference on Recommender
+  systems}, RecSys '10, pages 199--206, New York, NY, USA, 2010. ACM.
+
+\bibitem{kwak2010twitter}
+H.~Kwak, C.~Lee, H.~Park, and S.~Moon.
+\newblock What is twitter, a social network or a news media?
+\newblock In {\em Proceedings of the 19th international conference on World
+  wide web}, pages 591--600. ACM, 2010.
+
+\bibitem{Lin2012Generating}
+C.~Lin, C.~Lin, J.~Li, D.~Wang, Y.~Chen, and T.~Li.
+\newblock Generating event storylines from microblogs.
+\newblock In {\em Proceedings of the 21st ACM international conference on
+  Information and knowledge management}, CIKM '12, pages 175--184, New York,
+  NY, USA, 2012. ACM.
+
+\bibitem{Liu2016LEDS}
+Z.~Liu, Y.~Huang, and J.~R. Trampier.
+\newblock Leds: Local event discovery and summarization from tweets.
+\newblock In {\em Proceedings of the 24th ACM SIGSPATIAL International
+  Conference on Advances in Geographic Information Systems}, GIS '16, pages
+  53:1--53:4, New York, NY, USA, 2016. ACM.
+
+\bibitem{Mathioudakis2010TwitterMonitor}
+M.~Mathioudakis and N.~Koudas.
+\newblock Twittermonitor: trend detection over the twitter stream.
+\newblock In {\em Proceedings of the 2010 international conference on
+  Management of data}, SIGMOD '10, pages 1155--1158, New York, NY, USA, 2010.
+  ACM.
+
+\bibitem{Meng2012Entitycentric}
+X.~Meng, F.~Wei, X.~Liu, M.~Zhou, S.~Li, and H.~Wang.
+\newblock Entity-centric topic-oriented opinion summarization in twitter.
+\newblock In {\em Proceedings of the 18th ACM SIGKDD international conference
+  on Knowledge discovery and data mining}, KDD '12, pages 379--387, New York,
+  NY, USA, 2012. ACM.
+
+\bibitem{Ren2013Personalized}
+Z.~Ren, S.~Liang, E.~Meij, and M.~de~Rijke.
+\newblock Personalized time-aware tweets summarization.
+\newblock In {\em Proceedings of the 36th international ACM SIGIR conference on
+  Research and development in information retrieval}, SIGIR '13, pages
+  513--522, New York, NY, USA, 2013. ACM.
+
+\bibitem{Lin2008Storyline-based}
+F.~ren Lin and C.-H. Liang.
+\newblock Storyline-based summarization for news topic retrospection.
+\newblock {\em Decision Support Systems}, 45(3):473 -- 490, 2008.
+\newblock <ce:title>Special Issue Clusters</ce:title>.
+
+\bibitem{Rudra2016Summarizing}
+K.~Rudra, S.~Banerjee, N.~Ganguly, P.~Goyal, M.~Imran, and P.~Mitra.
+\newblock Summarizing situational tweets in crisis scenario.
+\newblock In {\em Proceedings of the 27th ACM Conference on Hypertext and
+  Social Media}, HT '16, pages 137--147, New York, NY, USA, 2016. ACM.
+
+\bibitem{Rudra2015Extracting}
+K.~Rudra, S.~Ghosh, N.~Ganguly, P.~Goyal, and S.~Ghosh.
+\newblock Extracting situational information from microblogs during disaster
+  events: A classification-summarization approach.
+\newblock In {\em Proceedings of the 24th ACM International on Conference on
+  Information and Knowledge Management}, CIKM '15, pages 583--592, New York,
+  NY, USA, 2015. ACM.
+
+\bibitem{Sharifi2010Summarizing}
+B.~Sharifi, M.-A. Hutton, and J.~Kalita.
+\newblock Summarizing microblogs automatically.
+\newblock In {\em Human Language Technologies: The 2010 Annual Conference of
+  the North American Chapter of the Association for Computational Linguistics},
+  HLT '10, pages 685--688, Stroudsburg, PA, USA, 2010. Association for
+  Computational Linguistics.
+
+\bibitem{Shou2013Sumblr}
+L.~Shou, Z.~Wang, K.~Chen, and G.~Chen.
+\newblock Sumblr: continuous summarization of evolving tweet streams.
+\newblock In {\em Proceedings of the 36th international ACM SIGIR conference on
+  Research and development in information retrieval}, SIGIR '13, pages
+  533--542, New York, NY, USA, 2013. ACM.
+
+\bibitem{Takamura2011Summarizing}
+H.~Takamura, H.~Yokono, and M.~Okumura.
+\newblock Summarizing a document stream.
+\newblock In {\em Proceedings of the 33rd European conference on Advances in
+  information retrieval}, ECIR'11, pages 177--188, Berlin, Heidelberg, 2011.
+  Springer-Verlag.
+
+\bibitem{Wang2009Evolutionary}
+D.~Wang, L.~Zheng, T.~Li, and Y.~Deng.
+\newblock Evolutionary document summarization for disaster management.
+\newblock In {\em Proceedings of the 32nd international ACM SIGIR conference on
+  Research and development in information retrieval}, pages 680--681. ACM,
+  2009.
+
+\bibitem{Yan2011Evolutionary}
+R.~Yan, X.~Wan, J.~Otterbacher, L.~Kong, X.~Li, and Y.~Zhang.
+\newblock Evolutionary timeline summarization: a balanced optimization
+  framework via iterative substitution.
+\newblock In {\em Proceedings of the 34th international ACM SIGIR conference on
+  Research and development in Information}, pages 745--754. ACM, 2011.
+
+\bibitem{Yih2007Multi-document}
+W.~Yih, J.~Goodman, L.~Vanderwende, and H.~Suzuki.
+\newblock Multi-document summarization by maximizing informative content-words.
+\newblock In {\em Proceedings of IJCAI}, volume~7, 2007.
+
+\bibitem{Zubiaga2012Towards}
+A.~Zubiaga, D.~Spina, E.~Amig\'{o}, and J.~Gonzalo.
+\newblock Towards real-time summarization of scheduled events from twitter
+  streams.
+\newblock In {\em Proceedings of the 23rd ACM conference on Hypertext and
+  social media}, HT '12, pages 319--320, New York, NY, USA, 2012. ACM.
+
+\end{thebibliography}
+
 
 \end{document}
