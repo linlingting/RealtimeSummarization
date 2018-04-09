@@ -24,7 +24,7 @@
 %Motivation
 Accidents, disasters, political rallies...we are eager to gather information about different kinds of live events that happen around us. In the past, we rely on experienced journalists to cover the stories. At now, thanks to the large community of micro-blogging users, we are provided with instant reports published by individuals and organizations all over the world.  More and more people today rely on microblogging contents, such as Tweets, to seek information about live events. However, the huge volume of event related tweets could be overwhelming. For example, TweeStudy shows that the majority (over $85\%$) of trending topics in microblog sphere are headline news and real-life events~\cite{kwak2010twitter}. An event summarization system is needed to facilitate knowledge management and improve user experiences.
 
-We have witnessed rapidly increasing popularity of research efforts in event summarization from tweets~\cite{}.   Most previous work are based on extractive method, i.e. they extract a smallest set of representative tweet reports\footnote{To distinguish tweets to be summarized and tweets in the summary, we will refer the former as tweets and the latter as reports} to form a brief summary. Extractive methods are easy to implement and have shown to perform well~\cite{}. Our arguments are founded on extractive summarization methods.
+We have witnessed rapidly increasing popularity of research efforts in event summarization from tweets~\cite{}.   Most previous work are based on extractive method, i.e. they extract a smallest set of representative tweet reports to form a brief summary. Extractive methods are easy to implement and have shown to perform well~\cite{}. Our arguments are founded on extractive summarization methods.
 
 %requirement: realtime
 Beyond the usual requirements for text summarization systems, such as coverage and representativeness of the summary,  event summary must also be \textbf{realtime}. On one hand, the response must be fast. The summary must be efficiently updated as new tweets arrive. On the other hand, the summary must report the current status of the event. As an ongoing event often involves changing information, report must be updated to include new information when it emerges.
@@ -57,7 +57,7 @@ To address the second challenge, we propose skeleton similarity: a new similarit
 Our contributions are three folds. (1) The integrity of event summary is a relatively unexplored area in Tweet summarization. We propose to improve the integrity of event summarization by explicit inconsistency detection. (2) Our system is targeted towards text streams. We model the realtime summarization problem as integer programming problems in small batches. We differ from existing work in that we enable incremental update in the simplex method framework. (3) We propose a novel skeleton similarity to efficiently and effectively capture inconsistency.
 
 %paper structure
-This paper is organized as follows. We briefly survey the related work in Sec.~\ref{sec:related}. In Sec.~\ref{sec:static}, we first introduce the idea of modeling a summarization problem as an integer programming problem and the standard simplex procedure to solve the relaxed linear programming problem. In Sec.~\ref{sec:dynamic}, we give the problem definition for realtime event summarization given a small batch of new tweets and the modified simplex solution. In Sec.~\ref{sec:inconsistency}, we describe the inconsistency detection strategy. We present and analyze the experimental results on a real data set in Sec.~\ref{sec:experiment}. We conclude our work and suggest future directions in Sec.~\ref{sec:conclusion}.
+This paper is organized as follows. We briefly survey the related work in Sec.~\ref{sec:related}. In Sec.~\ref{sec:static}, we first introduce the idea of modeling a summarization problem as an integer programming problem and the standard simplex procedure to solve the relaxed linear programming problem. In Sec.~\ref{sec:dynamic}, we give the problem definition for realtime event summarization given a small batch of new tweets and the modified simplex solution. The inconsistency detection strategy is a component of the simplex update algorithm. We present and analyze the experimental results on a real data set in Sec.~\ref{sec:experiment}. We conclude our work and suggest future directions in Sec.~\ref{sec:conclusion}.
 
 \section{Related Work}\label{sec:related}
 Tweet summarization belongs to the more general category of multi-document summarization. We start by reviewing the common approaches in multi-document summarization. Then we move on to describe the recent reseach trend of tweet summarization.
@@ -84,67 +84,86 @@ classification and summarization of situational information in~\cite{Rudra2015Ex
 
 
 \section{Static Summarization}\label{sec:static}
-In this section, we first model the (standard) static summarization problem as an integer programming problem. We then introduce background knowledge about the simplex method. We finally give a outline for the algorithm to solve static summarization.
+%
+The standard summarization task is conducted on a static set of tweets. We refer this task as a static summarization. In this section, we first model the static summarization problem as an integer programming problem. We then present a high level explanation about the simplex method. We finally give an outline for the algorithm to solve static summarization.
 \subsection{Problem Definition}
-Suppose that we have a universe of $N$ tweets, within which $M$ tweets are considered to be credible and relevant. The extractive method for any static summarization is to select a few representative reports from the tweet universe to form the summary. To model this problem, we use a vector $\mathbf{x}\in R^N$ , where each element $\mathbf{x}_j\in \{0,1\}$ is a binary variable. Note that the whole tweet universe is considered to be a set of candidates. If a candidate  $i$ is chosen to be a report in the summary, the corresponding $\mathbf{x}_i=1$ . Otherwise, we set  $\tilde{\mathbf{x}}_i=0$. We use another $N$-dim vector $\mathbf{c}\in R^M$ to describe the loss of choosing each tweet as a report. $\mathbf{A}\in R^{M\times N}$  is a similarity matrix, where $a_{i,j}$  is the similarity between a credible and relevant tweet $i$ and a candidate tweet $j$ in the tweet universe. $\mathbf{b}\in R^{M}$ is a weight vector, where $b_{i}>0$ indicates the importance of $i$ being covered in the summary. Our objective is
+%prelimiraries
+Suppose that we have a universe of $N$ \emph{candidate} tweets, within which $M$ tweets are credible and relevant. The credible and relevant tweets are important so they are considered to be the \emph{seeds} of the summary. The extractive method for any static summarization is to select a few representative tweet \emph{reports}\footnote{To distinguish the three types of tweets, we will refer the tweets to be summarized as candidates, the tweets in the summary as reports, and the credible and relevant tweets as seeds.} from the tweet universe to form the summary. To model this problem, we use a vector $\mathbf{x}\in \mathcal{R}^N$ , where each element $\mathbf{x}_j\in \{0,1\}$ is a binary variable. If a candidate  $i$ is chosen to be a report in the summary, the corresponding $x_i=1$ . Otherwise, we set  $x_i=0$. We use another $N$-dimensional vector $\mathbf{c}\in \mathcal{R}^M$ to describe the loss of choosing each candidate as a report. $\mathbf{A}\in\mathcal{R}^{M\times N}$  is a similarity matrix, where $A_{i,j}$  is the similarity between a seed $i$ and a candidate $j$ in the tweet universe. $\mathbf{b}\in \mathcal{R}^{M}$ is a weight vector, where $b_{i}>0$ indicates the importance of seed $i$ being covered in the summary. Our objective is to
 
 \begin{equation}\label{equ:integerstatic}
-\min \mathbf{c}^T \mathbf{x} \textrm{ subject to } \mathbf{A} \mathbf{x} \geq \mathbf{b}, \mathbf{x}\in \{0,1\}.
+\min \mathbf{c}^T \mathbf{x} \textrm{ subject to } \mathbf{A} \mathbf{x} \geq \mathbf{b}, \forall i\textrm{ } x_i\in \{0,1\}.
 \end{equation}
 
-The optimization problem in Equ.~\ref{equ:integerstatic} aims to find a minimal set of reports that deliver all credible and relevant information. Thus the result summary achieves brevity, coverage and representativeness. The decision of $b,c$ and the $M$ indices is beyond the scope of this paper. We allow the flexibility of choosing any sounding technique to determine the credible and relevant set of tweets, their importance value and the loss of choosing any tweet. For example,  we can choose the top $M$ results from a search engine for $M$ most relevant tweets, determine $\mathbf{b}$  by estimating  the authority of each relevant tweet, and assign $c$ by assessing the textual quality of each tweet,  
+The optimization problem in Equ.~\ref{equ:integerstatic} aims to find a minimal set of reports that deliver all credible and relevant information. Thus the result summary achieves brevity, coverage and representativeness. The decision of $b,c$ and the $M$ indices is beyond the scope of this paper. We allow the flexibility of choosing any sounding technique to determine the credible and relevant set of tweets, their importance value and the loss of choosing any candidate. For example,  we can choose the top $M$ results from a search engine for $M$ most relevant tweets, determine $\mathbf{b}$  by estimating  the authority of each relevant tweet, and assign $\mathbf{c}$ by assessing the textual quality of each candidate,  
 
 \subsection{The Simplex Method}
-We transform the integer programming problem in Equ.~\ref{equ:integerstatic} to a bounded linear programming problem by making the following adjustments: $\mathbf{c}=[\tilde{\mathbf{c}},\mathbf{0}],\mathbf{x}=[\tilde{\mathbf{x}},\mathbf{z}]^T,\mathbf{A}=[\tilde{\mathbf{A}},-\mathbf{I}]$, where $\mathbf{I}$ is the $M\times M$ identity matrix. Therefore we have the following objective
+We transform the integer programming problem in Equ.~\ref{equ:integerstatic} to a bounded linear programming problem by making the following adjustments: $\tilde{\mathbf{c}}=[\mathbf{c},\mathbf{0}],\tilde{\mathbf{x}}=[\mathbf{x},\mathbf{z}]^T,\tilde{\mathbf{A}}=[\mathbf{A},-\mathbf{I}]$, where $\mathbf{z}\in\mathcal{R}^M$, $ \mathbf{I}$ is the $M\times M$ identity matrix. Therefore we have the following objective
 
 \begin{equation}\label{equ:linear}
-\min \mathbf{cx} \textrm{ subject to } \mathbf{Ax} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1}.
+\min \tilde{\mathbf{c}}\tilde{\mathbf{x}}\textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} = \mathbf{b}, \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, ,\tilde{\mathbf{x}}\geq \mathbf{0}.
 \end{equation}
 
-The linear programming problem in Equ.~\ref{equ:linear} can be solved by the simplex method. Each iterate in the simplex method is a basic feasible point that (1) it satisfies $\mathbf{Ax} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1}$ and (2) there exists three subsett $\mathcal{B,U.L}$ of the index set $\mathcal{A}=\{1,2,\cdots N\}$ such that $\mathcal{B}$ contains exactly $M$ indices, $\mathcal{A}=\mathcal{B}\cup \mathcal{U} \cup \mathcal{L}$ and $i \in \mathcal{U} \Rightarrow x_i=1,i \in \mathcal{L} \Rightarrow x_i=0$.
+The linear programming problem in Equ.~\ref{equ:linear} can be solved by the simplex method. Each iterate in the simplex method is a \emph{basic feasible point} that (1) it satisfies $\tilde{\mathbf{A}}\tilde{\mathbf{x}} = \mathbf{b}, \forall 1\leq i\leq M+N,\tilde{x}_i \geq 0,\forall 1\leq j\leq N, \tilde{x}_j \leq 1$ and (2) there exists three subsets $\mathcal{B,U.L}$ of the index set $\mathcal{A}=\{1,2,\cdots M+N\}$ such that $\mathcal{B}$ contains exactly $M$ indices, $\mathcal{A}=\mathcal{B}\cup \mathcal{U} \cup \mathcal{L}$ and $i \in \mathcal{U} \Rightarrow \tilde{x}_i=1,i \in \mathcal{L} \Rightarrow \tilde{x}_i=0$.
 
 The major issue at each simplex iteration is to decide which index to be removed from the basis $\mathcal{B}$ and replaced by another index outside the basis $\mathcal{B}$.  As the optimal is achieved when the KKT conditions are satisfied, in each simplex iteration first  a \textbf{pricing} step is conducted to check on the KKT conditions.  If the KKT conditions are satisfied then the problem is solved. Otherwise a \textbf{pivoting} operation is implemented to select entering and leaving indices.
 
 We should keep in mind that the simplex iterations are run on basic feasible points. To obtain an easy start of basic feasible points, we solve the following linear programming problem.
 
 \begin{equation}\label{equ:linearphaseI}
-\min \mathbf{e^{T}s} \textrm{ subject to } \mathbf{Ax} + \mathbf{Is} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1},\mathbf{s}\geq \mathbf{0},
+\min \mathbf{e^{T}s} \textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} + \mathbf{Is} = \mathbf{b},  \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, ,\tilde{\mathbf{x}}\geq \mathbf{0}, \mathbf{s}\geq \mathbf{0},
 \end{equation}
 
 where $\mathbf{e}$ is the vector of all ones, $\mathbf{I}$ is a diagonal matrix whose diagonal elements are $I_{ij}=1$. $\mathbf{s}$ are called artificial variables. It is easy to see that the solution to Equ.~\ref{equ:linearphaseI} is a basic feasible point for Equ.~\ref{equ:linear}, if the objective $\mathbf{e^{T}s}=0 $.
 
-The remaining problem is that the solution we obtained for Equ.~\ref{equ:linear} are not integers. We therefore present to round the solutions by
+The remaining problem is that the solution we obtained for Equ.~\ref{equ:linear} are not integers. As our interest is on the variables $\mathbf{x}$ in Equ.~\ref{equ:integerstatic}, we can intepretate the values obtained for Equ.~\ref{equ:linear} $\tilde{x}_j, \forall 1\leq j\leq N $ as the probability of choosing $j$ as a response. For indices that are in the upper bound set $j \in \mathcal{U}$, the corresponding candidate is deemed in the summary. For indices that are in the lower bound set $j \in \mathcal{L}$, the corresponding candidate is filtered. For the remaining candidates, we perform a \textbf{rounding} algorithm. We first sort the solution we obtained for Equ.~\ref{equ:linear} in descending order of its values $0< \tilde{x}_j< 1,\forall 1\leq j\leq N$ and then sample $x_j$ based on the probability of assigned value $\tilde{x}_j$. 
 
 \begin{equation}
-p(x_i=1)= x_i
+p(x_j=1)= \tilde{x}_j, \forall 1\leq j \leq N
 \end{equation}
 
-%delete?
-To perform the rounding algorithm, we first sort the solution we obtained for Equ.~\ref{equ:linear} in descending order of $x$ values and then sample $x_i$ based on the probability of assigned value $x_i$.  For a further reduction on the objective function $\mathbf{c}{x}$
 
-To conclude this section, we present Algorithm.~\ref{alg:framework}
+
+To conclude this section, we present Algorithm.~\ref{alg:framework}. The frameowk of static summarization includes three steps. The first stage (step 1 to step 2) is to obtain a basic feasible point for the linear programming problem Equ.~\ref{equ:linear}, the second stage (step 3 to step 4) is to optimize the linear programing problem in Equ.~\ref{equ:linear}, and the third stage (step 5) is to obtain the integer solutions for Equ.~\ref{equ:integerstatic}.   
 
 \begin{algorithm}\label{alg:framework}
-\caption{The pseudo code of the framework for static summarization}
-\KwIn{$\mathbf{\tilde{c},b, \tilde{A}}$}
+\caption{The framework for static summarization}
+\KwIn{$\mathbf{c,b}, A$}
 \KwOut{$\mathbf{x}$}
 
-Initialize $\mathbf{x}=\mathbf{0},\mathbf{s}=\mathbf{b}$\;
-Solve $\min \mathbf{e^{T}s} \textrm{ subject to } \mathbf{Ax} + \mathbf{Is} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1},\mathbf{s}\geq \mathbf{0}$ by simplex method\;
-Keep $\mathbf{x}$, set $\mathbf{c}=[\tilde{\mathbf{c}},\mathbf{0}],\mathbf{x}=[\tilde{\mathbf{x}},\mathbf{z}]^T,\mathbf{A}=[\tilde{\mathbf{A}},-\mathbf{I}]$ \;
-Solve $\min \mathbf{cx} \textrm{ subject to } \mathbf{Ax} = \mathbf{b}, \mathbf{x}\geq \mathbf{0},\tilde{\mathbf{x}} \leq \mathbf{1}$ by simplex method\;
-Rounding $\mathbf{x}$\;
+Initialize $\tilde{\mathbf{x}}=\mathbf{0},\tilde{\mathbf{A}}=[\mathbf{A},-\mathbf{I}],\mathbf{s}=\mathbf{b}$\;
+Solve $\min \mathbf{e^{T}s} \textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} + \mathbf{Is} = \mathbf{b},  \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, ,\tilde{\mathbf{x}}\geq \mathbf{0}, \mathbf{s}\geq \mathbf{0}$ by simplex method\;
+Initialize $\tilde{\mathbf{x}}$ by the solution above, set $\tilde{\mathbf{c}}=[\mathbf{c},\mathbf{0}]$  \;
+Solve $\min \tilde{\mathbf{c}}\tilde{\mathbf{x}}\textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} = \mathbf{b}, \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, ,\tilde{\mathbf{x}}\geq \mathbf{0}$ by simplex method\;
+$\tilde{\mathbf{x}}=[\mathbf{x},\mathbf{z}]^T,$ Rounding $\mathbf{x}$\;
 %delete?
 \end{algorithm}
 
 
 
 \section{Dynamic Summarization}\label{sec:dynamic}
-For a streaming text, the realtime summarization system must be able to update the summary as new contents arrive. The summary is dynamic because it changes over time. We here consider a batch setting: the summary is updated when a predefined number $T$ of tweets are received. Note that if we set $T=1$ we enable online update.  In this section, we first model the dynamic summarization problem and then we present the improved simplex method.
+For streaming text, the realtime summarization system must be able to update the summary as new contents arrive. The summary is dynamic because it changes over time. We here consider a batch setting: the summary is updated when a predefined number $T$ of tweets are received. Note that if we set $T=1$ we enable online update.  In this section, we first model the dynamic summarization problem and then we present the improved simplex method.
 
 \subsection{Problem Definition}
-%first show that we don't need A by proving the constraint 1 hold by itself for all scenarios (conflicting, outdate, better converage)
-When a small batch of tweets arrive, we have a new set of $N_1 $ candidates and $M_1$ credible and relevant tweets, with importance denoted by $\mathbf{b_1}$.  We only keep previous reports $\mathbf{x_0}=\mathbf{1}$ and their loss value $\mathbf{c_0}$ and the set of credible and relevant tweets and their importance value $\mathbf{b_0}$ and discard everything else from former corpus to reduce storage space. Suppose we have $\mathbf{c_1}$ for the new candidates , $\mathbf{b_1}$ for the $M_1$ new credible and relevant tweets.  As in Sec.~\ref{sec:static}, the new summary can be modeled as the following integer programing problem.  
+%candidate universe
+When a small batch of tweets arrive, the candidate universe will be a new set of $N_1 $ candidates with importance weights denoted by $\mathbf{c_1}$ and the former candidates. We only keep previous reports $\mathbf{x_0}$ with $x_i=1$ in the former summary and their loss value $\mathbf{c_0}$  and discard everything else from former corpus to reduce storage space.
+
+%b
+To produce a summary that covers the demanded information, the model in Sec.~\ref{sec:static} requires a predefined set of credible and relevant seed tweets and their importance weights $\mathbf{b}$. It is crucial here to mention that in the dynamic setting the seed set is priorly unknown due to inconsistency. For example, if a new credible tweet is found to conflict with a former credible tweet, then the former one must be excluded. Suppose we have $M$ seeds, but the integrity is not guaranteed. It is possible to check on inconsistency to prune the $M$ seeds to identify a consistent new set. However, the inconsistency detection algorithm on $M\times (M-1)$ pairs is expensive. Henceforth, our idea is to call the inconsistency detection algorithm only when it is neccessary. 
+
+%assumption
+Suppose we segment the timeline of tweets into two divisions. $M_0$ represents the set of seeds that are covered by the former summary, $M_1$ is the set of seeds published after the former summary was generated. $M_1$ is generated as follows. We first retrieve all relevant tweets published after the summary. Then we can adopt any heuristic to fast prune inconsistent seeds in $M_1$. We can also adopt any external strategy to exclude seeds that are less credible than any seed in $M_0$. Therefore the seeds in $M_1$ must be covered with priority if they are inconsistent with the seeds in $M_0$, because any seed in  $M_0$ is newer and at least as credible as any seed in $M_1$.
+
+
+
+
+%model two phases
+Therefore we give the architecture of the dynamic summarization system. We model the dynamic summarization again as integer programing problems.  Given the whole set of candidates $\mathbf{x_0,x_n}$ and the associated loss $\mathbf{c_0,c_n}$, $\mathbf{b_0,b_1}$, at stage I, we first solve the optimization problem for the higher division of seeds. 
+
+\begin{equation}\label{equ:stageI}
+\min \mathbf{c_0}^T \mathbf{x_0} + \mathbf{c_1}^T \mathbf{x_1} \textrm{ subject to } S \mathbf{x_0} + B\mathbf{x_1} \geq \mathbf{b_1}, \forall i, \forall j\in \{0,1\}\textrm{ } x_{j,i}\in \{0,1\}.
+\end{equation}
+
+In solving Equ.~\ref{equ:stageI} we will obtain the refined seed set $\mathbf{b_0}$. In stage II we solve the optimization problem:
 \begin{eqnarray}
 \min \mathbf{c_0}^T \mathbf{x_0}+\mathbf{c_1}^T\mathbf{x_1}\\\nonumber
 s.t. \begin{bmatrix}
@@ -157,14 +176,20 @@ S & B
 \mathbf{b_0}\\
 \mathbf{b_1}
 \end{bmatrix},\\\nonumber
-\forall i x_{0,i}\in \{0,1\} ,\\\nonumber
-\forall j x_{1,i}\in \{0,1\} ,
+ \forall i, \forall j\in \{0,1\}\textrm{ } x_{j,i}\in \{0,1\}, 
 \end{eqnarray}
 
 where $A\in \mathcal{R}^{M_0\times N_1}$ is the similarity matrix between former reports and old tweets, $D\in \mathcal{R}^{N_1\times M_0}$ is the similarity matrix between new candidates and old credible tweets, $S\in \mathcal{R}^{N_0\times M_1}$ is the similarity matrix between old reports and new credible tweets, $B$ is the similarity matrix between new candidates and new credible tweets.
-%check whether constraint 2 is satisfied, note that D is small due to the sparseness of x_0
 
+%algorithm overview
+\subsection{Simplex Update Method}
+%initialization
 
+%pricing
+
+%pivoting
+
+%
 
 $D^Tx_0\geq b_1$
 
@@ -174,12 +199,15 @@ $D^Tx_0\geq b_1$
 %else implement simplex
 
 %if an index gets out, check if its conflicting by measuring structural similarity
-\subsection{Online Simplex Method}
+
 Let's compute $\mathbf{y} = {\mathbf{B}^T}^{-1}\mathbf{c_B}$, $\bar{c_j} = c_j - y^T\mathbf{A}_{,j}^{'}$. If $x_j = 0, \bar{c_j} > 0$ and $x_j = 1,\bar{c_j} < 0$, 
 
 And then delete inconsistent information in summarys by inconsistency detection. Delete the lower weight tweet,if they have equal weight then delete the earlier one.
 
-
+\subsection{Inconsistency Detection}
+%POS
+%common sequence
+%algorithm
 \begin{algorithm}
 \caption{the bounded simplex method}
 \KwIn{$\mathbf{c}=[\mathbf{e},\mathbf{0}], \mathbf{x}^{'} = [\mathbf{x},\mathbf{s}]^T$ and $\mathbf{A}^{'} = [\mathbf{A},\mathbf{I}]$}
@@ -225,7 +253,6 @@ Compute $\bar{c_j} = c_j - y^T\mathbf{A}_{,j}^{'}$\;
 
 
 
-\section{Inconsistency Detection}\label{sec:inconsistency}
 
 \section{Experiment}\label{sec:experiment}
 \subsection{Experimental Setup}
