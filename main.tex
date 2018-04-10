@@ -1,15 +1,13 @@
 
-\documentclass{llncs}
+\documentclass[envcountsame]{llncs}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{graphicx}
-\usepackage{epstopdf}
 \usepackage{subfigure}
-\usepackage{floatrow}
-\floatsetup[table]{capposition=top}
-\newfloatcommand{capbtabbox}{table}[][\FBwidth]
 \usepackage[linesnumbered,boxed]{algorithm2e}
 
+\setlength{\abovecaptionskip}{10pt} 
+\setlength{\belowcaptionskip}{-10pt}
 
 
 \begin{document}
@@ -61,18 +59,18 @@ Our contributions are three folds. (1) The integrity of event summary is a relat
 This paper is organized as follows. We briefly survey the related work in Sec.~\ref{sec:related}. In Sec.~\ref{sec:static}, we first introduce the idea of modeling a summarization problem as an integer programming problem and the standard simplex procedure to solve the relaxed linear programming problem. In Sec.~\ref{sec:dynamic}, we give the problem definition for realtime event summarization given a small batch of new tweets and the improved simplex solution. The inconsistency detection strategy is a component of the simplex update algorithm. We present and analyze the experimental results on a real data set in Sec.~\ref{sec:experiment}. We conclude our work and suggest future directions in Sec.~\ref{sec:conclusion}.
 
 \section{Related Work}\label{sec:related}
-Tweet summarization belongs to the more general category of multi-document summarization. We start by reviewing the common approaches in multi-document summarization. Then we move on to describe the recent research trend of tweet summarization.
+%Tweet summarization belongs to the more general category of multi-document summarization. We start by reviewing the common approaches in multi-document summarization. Then we move on to describe the recent research trend of tweet summarization.
 
-\subsection{Multi-document Summarization}
+%\subsection{Multi-document Summarization}
 %first paragraph: multi document summarization
 %??LPR, SNMF??
-Multi-document summarization conveys the main and most important meaning of several documents. There are generally two types of summarization techniques. One type is extraction-based summarization, which extracts objects from the entire collection and combines the objects into a summary without modifying the objects themselves. The other type is abstraction-based summarization which rephrases the source document. The majority of summarization systems are extractive. The extracted objects are often sentences. The selection is usually based on the representativeness of sentences, i.e. with significant frequency~\cite{Yih2007Multi-document}, or is a structural centroid in a sentence graph~\cite{Kumar2004Graph,Lin2012Generating}, or is considered important by a submodularity function~\cite{Li2011MSSF}. 
+Multi-document summarization conveys the main and most important meaning of several documents. There are generally two types of summarization techniques. One type is extraction-based summarization, which extracts objects from the entire collection and combines the objects into a summary without modifying the objects themselves. The other type is abstraction-based summarization which rephrases the source document. The majority of summarization systems are extractive. The extracted objects are often sentences. The selection is usually based on the representativeness of sentences, i.e. with significant frequency~\cite{Yih2007Multi-document}, or is a structural centroid in a sentence graph~\cite{Lin2012Generating}, or is considered important by a submodularity function~\cite{MSSF}. 
 
 %second paragraph: event summarization 
-Recently, a number of studies devote to summarizing documents related to events, mostly news articles. In~\cite{Lin2008Storyline-based} a main theme is extracted by selecting representative sentences in each time segment of the event. ETS~\cite{Wang2009Evolutionary} returns the evolution skeleton along the timeline by extracting representative and discriminative sentences at each phase. In~\cite{Yan2011Evolutionary} representative sentences are chosen based on relevance, coverage, coherence and cross-date diversity.
+%Recently, a number of studies devote to summarizing documents related to events, mostly news articles. In~\cite{Lin2008Storyline-based} a main theme is extracted by selecting representative sentences in each time segment of the event. ETS~\cite{Wang2009Evolutionary} returns the evolution skeleton along the timeline by extracting representative and discriminative sentences at each phase. In~\cite{Yan2011Evolutionary} representative sentences are chosen based on relevance, coverage, coherence and cross-date diversity.
 
 
-\subsection{Tweet Summarization}
+%\subsection{Tweet Summarization}
 %first paragraph: tweet summarization
 The emergence of Twitter motivates recent research works on summarizing microblogging contents. Tweet summarization systems are successfully applied in entity-centric opinion summarization~\cite{Meng2012Entitycentric}, personal summarization of interesting content~\cite{Ren2013Personalized,Chin2017TOTEM}, search results grouping \cite{Mathioudakis2010TwitterMonitor}, and summarizing tweets for natural or social events~\cite{Takamura2011Summarizing,Lin2012Generating,Rudra2015Extracting,Shou2013Sumblr,Liu2016LEDS,Gillani2017Post,Zubiaga2012Towards}.
 
@@ -108,7 +106,8 @@ The linear programming problem in Equ.~\ref{equ:linear} can be solved by the sim
 
 The major issue at each simplex iteration is to decide which index to be removed from the basis $\mathcal{B}$ and replaced by another index outside the basis $\mathcal{B}$.  As the optimal is achieved when the KKT conditions are satisfied, in each simplex iteration first  a \textbf{pricing} step is conducted to check on the KKT conditions.  If the KKT conditions are satisfied then the problem is solved. Otherwise a \textbf{pivoting} operation is implemented to select entering and leaving indices.
 
-We should keep in mind that the simplex iterations are run on basic feasible points. To obtain an easy start of basic feasible points, we solve the following linear programming problem.
+%We should keep in mind that the simplex iterations are run on basic feasible points. 
+To obtain an easy start of basic feasible points, we solve the following linear programming problem.
 
 \begin{equation}\label{equ:linearphaseI}
 \min \mathbf{e^{T}s} \textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} + \mathbf{Is} = \mathbf{b},  \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, ,\tilde{\mathbf{x}}\geq \mathbf{0}, \mathbf{s}\geq \mathbf{0},
@@ -152,7 +151,7 @@ When a small batch of tweets arrive, the candidate universe will be a new set of
 To produce a summary that covers the demanded information, the model in Sec.~\ref{sec:static} requires a predefined set of credible and relevant seed tweets and their importance weights $\mathbf{b}$. It is crucial here to mention that in the dynamic setting the seed set is priorly unknown due to inconsistency. For example, if a new credible tweet is found to conflict with a former credible tweet, then the former one must be excluded. Suppose we have $M$ seeds, but the integrity is not guaranteed. It is possible to check on inconsistency to prune the $M$ seeds to identify a consistent new set. However, the inconsistency detection algorithm on $M\times (M-1)$ pairs is expensive. Henceforth, our idea is to call the inconsistency detection algorithm only when it is necessary. 
 
 %assumption
-Suppose we segment the timeline of tweets into two divisions. $M_0$ represents the set of seeds that are covered by the former summary, $M_1$ is the set of seeds published after the former summary was generated. $M_1$ is generated as follows. We first retrieve $R$ relevant tweets published after the summary. Then we can adopt any heuristic to fast prune inconsistent seeds in $M_1$. We can also adopt any external strategy to exclude seeds that are less credible than any seed in $M_0$. Therefore the seeds in $M_1$ must be covered with priority if they are inconsistent with the seeds in $M_0$, because any seed in  $M_0$ is newer and at least as credible as any seed in $M_1$.  To deliver an up-to-date summary, we set $\mathbf{c}$ so that the importance for new seeds is larger than the old seeds.
+Suppose we segment the timeline of tweets into two divisions. $M_0$ represents the set of seeds that are covered by the former summary, $M_1$ is the set of seeds published after the former summary was generated. $M_1$ is generated as follows. We first retrieve $R$ relevant tweets published after the summary. Then we can adopt any heuristic to fast prune inconsistent seeds in $M_1$. We can also adopt any external strategy to exclude seeds that are less credible than any seed in $M_0$. Therefore the seeds in $M_1$ must be covered with priority if they are inconsistent with the seeds in $M_0$, because any seed in  $M_0$ is newer and at least as credible as any seed in $M_1$.  To deliver an up-to-date summary, we set $\mathbf{c}$ so that the loss for new candidates is smaller than the old candidates.
 
 
 
@@ -193,360 +192,202 @@ In each iterate of simplex, we first operate the pricing step.  Let's compute $\
 
 
 %pivoting
-We modify the conventional pivoting operation in the simplex method. In the initialization we keep $\mathbf{x_0}=\mathbf{1}$, which indicates that the constraint is satisfied with all the former reports kept. If the pricing step suggests the objective function is not optimized, there are usually multiple indices which violate the KKT conditions.  Hence in selecting the entering index, we prefer a $z$ index, because selecting an auxiliary variable leads to minimal modification of the summary. However, if an index from $\mathbf{x_0}$ is to leave and an index from $\mathbf{x_1}$ is to enter, it implies that a new tweet is able to cover the same set of seeds. We can not rule out the possibility of inconsistency. Therefore we conduct inconsistency test between the entering index and the leaving index. If the leaving index is found to be inconsistent of the new report, we delete the corresponding index $x_{0,i}$ from iteration. The pivoting operation is described in Algorithm.~\ref{alg:pivoting}.
+We modify the conventional pivoting operation in the simplex method. In the initialization we keep $\mathbf{x_0}=\mathbf{1}$, which indicates that the constraint is satisfied with all the former reports kept. If the pricing step suggests the objective function is not optimized, there are usually multiple indices which violate the KKT conditions.  Hence in selecting the entering index, we prefer a $z$ index, because selecting an auxiliary variable leads to minimal modification of the summary. However, if an index from $\mathbf{x_0}$ is to leave and an index from $\mathbf{x_1}$ is to enter, a new tweet is able to cover the same set of seeds with smaller cost (given that we assign higher loss $c_0$ to old tweets). We can not rule out the possibility of inconsistency. In fact, inconsistency only happens when two tweets are semantically closely related. Therefore we conduct inconsistency test between the entering index and the leaving index. If the leaving index is found to be inconsistent of the new report, we delete the corresponding component $x_{0,i}$ from the problem. This strategy ensures that inconsistent candidates do not repeatedly enter and leave the summary. We remove all seeds that are related to $x_{0,i}$ in $\mathbf{b_0}$. The pivoting operation is described in Algorithm.~\ref{alg:pivoting}.
 
 %
 
-\subsection{Inconsistency Detection}
-%POS
-%common sequence
-%algorithm
-\begin{algorithm}[htbp]
-\caption{Pivoting in the improved simplex method}
-    $q = \arg\max_{j} \left\{\bar{c_j} \forall j\in\{\mathbf{z_N}, \mathbf{s_N}, \mathbf{x_L}  \},-\bar{c_j} \forall j\in\mathbf{x_U}  \right\}$\;
+
+\begin{algorithm}[ht]\label{alg:pivoting}
+\caption{Pivoting in the simplex update method}
+    $q = \arg\max_{j} \left\{10\times\bar{c_j}\textrm{ } \forall j\in \mathbf{z_N}, \bar{c_j} \textrm{ } \forall j\in\{\mathbf{x_L}  \},-\bar{c_j}\textrm{ }  \forall j\in\mathbf{x_U}  \right\}$\;
     $d = \mathbf{B}^{-1}\mathbf{A}_{,q}^{'}$\;
-    \If{$q \in \{ \mathbf{z_N}, \mathbf{s_N}\}$}
+    \If{$q \in \{ \mathbf{z_N}\}$}
     {
         $x_q^{new} = \min_i \left\{\{\frac{x_{\mathbf{B}_{i}}}{d_i}, \frac{s_{\mathbf{B}_{i}}}{d_i}, \frac{z_{\mathbf{B}_{i}}}{d_i}\} \forall d_i>0,\{\frac{x_{\mathbf{B}_{i}}-1}{d_i}\} \forall d_i<0\right\}$\;
         $\mathbf{x}_{\mathbf{B}^{old}}^{'new} = \mathbf{x}_{\mathbf{B}^{old}}^{'old} - dx_q^{new}$\;
         $p=\arg\min_{i}$\;
-        $\mathbf{B}^{new} \leftarrow \mathbf{B}^{old} - \{p\} \bigcup \{q\}$\;
+
     }
-    \If{$q \in L$}
+    \If{$q \in \mathbf{x_L}$}
     {
         $x_q^{new} = \min_i \left\{\{\frac{x_{\mathbf{B}_{i}}}{d_i}, \frac{s_{\mathbf{B}_{i}}}{d_i}, \frac{z_{\mathbf{B}_{i}}}{d_i}\} \forall d_i>0, \{\frac{x_{\mathbf{B}_{i}}-1}{d_i}\} \forall d_i<0, 1 \right\}$\;
         $\mathbf{x}_{\mathbf{B}^{old}}^{'new} = \mathbf{x}_{\mathbf{B}^{old}}^{'old} - dx_q^{new}$\; \If{$x_q^{new} \neq 1$}
         {
             $p=\arg\min_{i}$\;
-            $\mathbf{B}^{new} \leftarrow \mathbf{B}^{old} - \{p\} \bigcup \{q\}$\;
         }
     }
-    \If{$q \in U$}
+    \If{$q \in \mathbf{x_U}$}
     {
         $x_q^{new} = 1 - \min_i \left\{\{\frac{x_{\mathbf{B}_{i}}}{-d_i}, \frac{s_{\mathbf{B}_{i}}}{-d_i}, \frac{z_{\mathbf{B}_{i}}}{-d_i}\} \forall d_i<0, \{\frac{1-x_{\mathbf{B}_{i}}}{d_i}\} \forall d_i>0, 1 \right\}$\;
         $\mathbf{x}_{\mathbf{B}^{old}}^{'new} = \mathbf{x}_{\mathbf{B}^{old}}^{'old} + d(1-x_q^{new})$\;
         \If{$x_q^{new} \neq 0$}
         {
             $p=\arg\min_{i}$\;
-            $\mathbf{B}^{new} \leftarrow \mathbf{B}^{old} - \{p\} \bigcup \{q\}$\;
         }
     }
+\If{$1\leq p \leq N_0, N_0+1\leq q \leq N_0+N_1$}
+{
+	Inconsistency detection on $(p,q)$\;
+	\If{$p,q$ are inconsistent}
+	{ Refine $\mathbf{b_0}$\;
+	  Remove $p$ from index set $\mathcal{A}$\;
+}	
+}
+ $\mathbf{B}^{new} \leftarrow \mathbf{B}^{old} - \{p\} \bigcup \{q\}$\;
 
 \end{algorithm}
 
+\subsection{Inconsistency Detection}
 
+
+%preprocessing
+To effectively deal with tweets which contain abbreviations, numerals, foreign words and symbols, we perform case-folding, lemmatization, stop-word removal, marker deletion, POS tagging~\cite{Rudra2015Extracting} and Named Entity Recognition~\cite{Finkel2005Incorporating}. We ignore the Twitter-specific words (assigned by tag ``G''). We replace all numerals by a special token ``numeral''. The named entity phrases, such as person, organization location are  replaced by special tokens. A tweet is tramsformed to a sequence of tokens after pre-processing. 
+
+%common sequence
+The skeleton of a pair of tweets is the longest common sequence (LCS) of tokens. Note that we do not consider the position of special tokens in finding the LCS. Special tokens, despite of their values, are considered to be identical and a component of the LCS. After the LCS is found, we append the specific tokens to the LCS. As shown in Tab.~\ref{tab:example}, the LCS for the given pair of tweets is ``least numeral location''.
+ 
+\begin{table}\label{tab:example}
+\caption{Illustrative example of a pair of inconsistent tweets}
+\begin{tabular}{|c|c|}
+\hline
+Original tweet 1 & At least 38 killed in Pakistan by blast outside Lahore park \\
+Processed tweet 1  & least (numeral) killed  (location) blast  (location)\\\hline
+Original tweet 2 &    TTP claims Lahore park explosion that killed at least 65 \\
+Processed tweet 2& (organization) claim (location) explosion killed least (numeral)\\\hline
+\end{tabular}    
+\end{table}
+
+%skeleton similarity
+Two tweets are inconsistent, if they are similar at the sentence level, yet they are different in some of the key components. In a real event, numerals and named entities are often key components because they provide situational information about an event. Therefore we identify inconsistency if (1) the length ratio of LCS v.s. the shortest tweet in the pair is equal to or larger than $0.5$ and (2) the special tokens, such as numerals, persons, organizations and locations have different values in the two tweets. For example, the two tweets in Tab.~\ref{tab:example} are inconsistent, because the LCS has length $3$ and the shortest tweet has length $6$ and the numerals and locations are different (i.e. $38$ v.s. $65$). 
 
 
 \section{Experiment}\label{sec:experiment}
 \subsection{Experimental Setup}
 %Data set
-We use the twitter event data set~\cite{}. The corpus includes data for 30 different Twitter datasets associated with real world events. The datasets were collected between 2012 and 2016, always using the streaming API with a set of keywords. Different types of tweets are presented, including repliesand retweets. The corpus is multilingual, including English, Japanese and so on. For the purpose of event summarization, we select 10 events and filter relevant tweets by only select tweets in English. More details of the data set are illustrated in Table ~\ref{table:static}.
+We use the twitter event data set~\cite{ZubiagaTwitterDatasets}. The corpus includes tweets for 10 real world events, collected between 2014 and 2016, through the Twitter API using keyword matching. Details of the data set, including the description of each event, the number of tweets related to each event are shown in Table ~\ref{table:static}.
 
-\begin{table}[htp]\label{table:static}
-\caption{Statistics of the data set}
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|}
-    \hline
-    Event & Number of tweets & Time period & Average Length of tweets &  Number of terms\\
-    \hline
-    EOutbreak & 12983 & 2014/7/1 $\sim$ 2014/7/31 & 93 & 15 \\
-    \hline
-    GUattack & 21000 & 2014/6/2 $\sim$ 2014/7/17 & 103 & 15 \\
-    \hline
-    HProtest & 27000 & 2014/9/26 $\sim$ 2014/10/17 & 96 & 14 \\
-    \hline
-    THagupit & 10315 & 2014/12/5 $\sim$ 2014/12/11 & 92 & 14 \\
-    \hline
-    CHShoot & 15000 & 2015/1/7 & 95 & 15 \\
-    \hline
-    HPatricia & 9288 & 2015/10/24 $\sim$ 2015/12/8 & 88 & 13 \\
-    \hline
-    RWelcome & 19725 & 2015/9/2 $\sim$ 2015/11/24 & 103 & 15 \\
-    \hline
-    BAExplossion & 15000 & 2016/3/22 & 91 & 14 \\
-    \hline
-    HPCyprus & 14917 & 2016/3/29 $\sim$ 2016/3/30 & 92 & 15\\
-    \hline
-    LBlast & 13423 & 2016/3/27 $\sim$ 2016/3/30 & 95 & 15\\
-    \hline
-\end{tabular}
-\end{center}
-\label{default}
-\end{table}
 
 %Preprocessing
-In pre-processing corpus, we use the Bloom Filter algorithm to filter duplicate tweets. Emoji expressions,http links and mentions (@somebody)are removed from the vocabulary.
 
+Different types of tweets are contained in the data set, including repliesand retweets. The corpus is multilingual, including English, Japanese and so on.
+In pre-processing, we first filter non-English tweets. We use the Bloom Filter algorithm~\cite{BloomFilter}to filter duplicate tweets. Emoji expressions, http links and mentions (@somebody) are removed from the vocabulary.
+\begin{table}[ht]\label{table:static}
+\caption{Statistics of the events and related tweets}
+\begin{center}
+\tiny
+\begin{tabular}{|p{2cm}|p{1.5cm}|p{2cm}|p{7cm}|}
+    \hline
+    Abbrevation & $\sharp$ Tweets & Time period (start end) &  Event description\\
+    \hline
+    EOutbreak & 12983 & 2014/07/01  2014/07/31 &  large-scale virus outbreaks in West Africa \\
+    \hline
+    GUAttack & 21000 & 2014/06/02  2014/07/17 &military operation launched by Israel in the Hamas-ruled Gaza Strip \\
+    \hline
+    HProtest & 27000 & 2014/09/26  2014/10/17 & a series of civil disobedience campaigns  in Hong Kong \\
+    \hline
+    THagupit & 10315 & 2014/12/05  2014/12/11 & a strong cyclone code-named Typhoon Hagupit hit Philippines. \\
+    \hline
+    CHShoot & 15000 & 2015/01/07  2015/01/07 &two brothers forced their way into the offices of the French satirical weekly newspaper Charlie Hebdo in Paris \\
+    \hline
+    HPatricia & 9288 & 2015/10/24  2015/12/08 &  the second-most intense tropical cyclone on record worldwide \\
+    \hline
+    RWelcome & 19725 & 2015/09/02  2015/11/24 & rising numbers of people arrived in the European Union because of European refugee crisis.\\
+    \hline
+    BAExplossion & 15000 & 2016/03/22  2016/03/22 &three coordinated suicide bombings occurred in Belgium.\\
+    \hline
+    HPCyprus & 14917 & 2016/03/29 2016/03/30 & a domestic passenger flight was hijacked by an Egyptian man in Cyprus.\\
+    \hline
+    LBlast & 13423 & 2016/03/27  2016/03/30 & a suicide bombing that hit the main entrance of Gulshan-e-Iqbal Park.\\
+    \hline
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}
+
+\subsection{Summarization Performance} 
+%goal
+We first evaluate the summarization performance of the proposed algorithm. For each event, we chronologically order the tweets and segment the timeline. Each time sgement contains 3000 tweets. We run the search engine Terrier~\footnote{www.terrier.org}, and  retrieve top 300 related posts returned by Terrier. We assign $b=0.2$ for tweets published by any user with more than $5$ tweets in the data set, and $b=0.1$ for other tweets. We assign $c=log(t_i)$ where $t_i$ is the number of munites between the tweet $i$'s publication time and the time segment's ending point.  
+ 
+%comparative methods
+We compar our summarization scheme with  four state-of-the-art summarization methods. (1)LPR~\cite{LPR}:summarization based on a sentence connectivity matrix. (2)MSSF~\cite{MSSF}:  multi-document summarization based on submodularity hidden in textual-unit similarity property. (3)SNMF~\cite{SNMF}: summarization based on  symmetric non-negative matrix decomposition. (4)Sumblr~\cite{Shou2013Sumblr}: online tweet summarization based on incremental clustering.
 
 %Ground truth
-Ground truth For the 10 events in corpus,2 students are invited to manually extract tweets to form the summarization for each event.
+The ground truth of summaries for each time segment is manually generated. For each time segment of each event, three human volunteers review the summaries generated by the above mentioned methods and individually select the tweets that can summarize the events of this time period. The final gold standard summary is selected by taking a simple majority vote on each tweet.
 
-%comparative methods
-The comparative methods are  state-of-the-art summarization methods.
-
-(1)LPR
-
-(2)MSSF
-
-(3)SNMF
-
-(4)Sumblr
-
-
-%Operating system
-We implemented all algorithms in java and all experiments have been executed on a server with an AMD Opteron Processor 280 2.40G Hz (4 cores)and main memory 8G bytes.
-
-\subsection{Summarization Performance}
-%goal
 
 %evaluation
-The measurement is mainly based on Recall-Oriented Understudy for Gisting Evaluation(ROUGE) an evaluation toolkit for document summarization[23] which automatically determines the quality of a summary by comparing it with the human generated summaries through counting the number of their overlapping textual units (e.g., n-gram, word sequences, and etc.). In particular, F-measure scores of 8 evaluations are presented for our experiments.
+The measurement is  Recall-Oriented Understudy for Gisting Evaluation(ROUGE). ROUGE is a standard evaluation toolkit for document summarization~\cite{ROUGE} which automatically determines the quality of a summary by comparing it with the human generated summaries through counting the number of their overlapping textual units (e.g., n-gram, word sequences, and etc.). There are four different ROUGE measures: ROUGE-N, ROUGE-L, ROUGE-W, and ROUGE-S, depending on the textual units to be compared.
 
+We report the  ROUGE F-score for all versions of ROUGE measures, averaged over the 10 events in our data set, by our simplex algorithm and the comparative state-of-the-art methods. As shown in Fig.~\ref{fig:rouge}, our system (marked as Simplex) outperforms state-of-the-art methods in terms of all ROUGE metrics. It is clear that, despite of the nature of events, the proposed system which is based on integer programming problems is able to model the summarization task well. Futhermore, by explicitly detecting for inconsistency, the quality of summary is significantly enhanced. 
 
 %results figure
-\begin{figure}
+\begin{figure}\label{fig:rouge}
     \centering
-    \includegraphics[scale=0.6]{rouge.eps}
-
+    \includegraphics[width=\textwidth]{rouge.eps}
+\caption{Average ROUGE F-score on 10 events by different methods.}
 \end{figure}
 
-\begin{table}[htp]\label{table:update 0f simplex}
-\caption{the updateRatio of Simplex}
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-    \hline
-    Event & Time1 & Time2 & Time3 \\
-    \hline
-    EOutbreak & 0 & 0.57 & 0.38 \\
-    \hline
-    GUattack & 0 & 0.36 & 0.33 \\
-    \hline
-    HProtest & 0.38 & 0.67 & 0.96 \\
-    \hline
-    THagupit & 0 & 0.1 & 0.62\\
-    \hline
-    CHShoot & 0.94 & 0.62 & 0.25\\
-    \hline
-    HPatricia & 0 & 0.75 & 0.83\\
-    \hline
-    RWelcome & 0.20 & 0.50 & 0\\
-    \hline
-    BAExplossion & 1 & 0.67 & 0.80\\
-    \hline
-    HPCyprus & 0.88 & 0.65 & 0.76\\
-    \hline
-    LBlast & 0.22 & 0.50 & 0.69\\
-    \hline
-\end{tabular}
-\end{center}
-\label{default}
-\end{table}
 
-\begin{table}[htp]\label{table:update 0f sumblr}
-\caption{the updateRatio of Sumblr}
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-    \hline
-    Event & Time1 & Time2 & Time3 \\
-    \hline
-    EOutbreak & 0.75 & 0.30 & 0.20 \\
-    \hline
-    GUattack & 0.65 & 0.50 & 0.30 \\
-    \hline
-    HProtest & 0.35 & 0.40 & 0.30 \\
-    \hline
-    THagupit & 0.65 & 0.45 & 0.10\\
-    \hline
-    CHShoot & 0.20 & 0.05 & 0.10\\
-    \hline
-    HPatricia & 0.25 & 0.20 & 0\\
-    \hline
-    RWelcome & 0.35 & 0.35 & 0.20\\
-    \hline
-    BAExplossion & 0.45 & 0.35 & 0\\
-    \hline
-    HPCyprus & 0.30 & 0.15 & 0.25\\
-    \hline
-    LBlast & 0.30 & 0.25 & 0.05\\
-    \hline
-\end{tabular}
-\end{center}
-\label{default}
-\end{table}
-
-\begin{table}[htp]\label{table:update 0f mssf}
-\caption{the updateRatio of MSSF}
-\begin{center}
-    \begin{tabular}{|c|c|c|c|}
-    \hline
-    Event & Time1 & Time2 & Time3 \\
-    \hline
-    EOutbreak & 0.41 & 0.29 & 0.24 \\
-    \hline
-    GUattack & 0.62 & 0.18 & 0.18 \\
-    \hline
-    HProtest & 0.65 & 0.22 & 0.17 \\
-    \hline
-    THagupit & 0.39 & 0.61 & 0.18\\
-    \hline
-    CHShoot & 0.33 & 0.39 & 0.18\\
-    \hline
-    HPatricia & 0.47 & 0.29 & 0\\
-    \hline
-    RWelcome & 0.44 & 0.62 & 0.17\\
-    \hline
-    BAExplossion & 0.39 & 0.12 & 0.12\\
-    \hline
-    HPCyprus & 0.11 & 0.17 & 0.17\\
-    \hline
-    LBlast & 0.35 & 0.50 & 0.33\\
-    \hline
-    \end{tabular}
-\end{center}
-\label{default}
-\end{table}
 
 \subsection{Inconsistency Detection Performance}
 %comparative methods
-In addition of the state-of-the-art summarization methods, for comparison on inconsistency detection, we adopted some naive methods
+Next we study the integrity of summaries generated by different methods. As events in our dataset vary in the length of their lifespan, we select the first 4 timesegments for every event, and compute the inconsistent rate of the summary produced by each method. We first adopt the inconsistency detection strategy in Sec.~\ref{sec:dynamic} to identify inconsistent reports in each summary, and then we manually check the inconsistent reports. We finally obtain the inconsistent rate, which is the proportion of the number of inconsistent reports to the number of reports in a summary.  
 
+As shown in Fig.~\ref{fig:conflictRatio}, the proposed method preserves the integrity of the summary. At each time segment, the median, 25th and 75 percentile of the inconsistent rate over all event summaries produced by the proposed methods are all near zero. On the contrary, the state-of-the-art comparative methods can not generate an consistent summary. LPR and SNMF are better than MSSF and Sumblr, possibly due to the fact that LPR and SNMF tend to select a smaller number of reports. Sumblr and MSSF tend to select more redundant reports, thus the possibility of inconsistency is increased.
 %result table or figure
-\begin{table*}
-\begin{floatrow}
-\capbtabbox{
-    \begin{tabular}{|c|c|c|c|c|}
-    \hline
-    Event & Time0 & Time1 & Time2 & Time3 \\
-    \hline
-    EOutbreak & 0.65 & 0.70 & 0.65 & 0.70 \\
-    \hline
-    GUattack & 0.60 & 0.55 & 0.40 & 0.50 \\
-    \hline
-    HProtest & 0.60 & 0.55 & 0.55 & 0.50 \\
-    \hline
-    THagupit & 0.70 & 0.75 & 0.70 & 0.65\\
-    \hline
-    CHShoot & 0.85 & 0.70 & 0.75 & 0.70\\
-    \hline
-    HPatricia & 0.75 & 0.75 & 0.75 & 0.75\\
-    \hline
-    RWelcome & 0.65 & 0.60 & 0.65 & 0.65\\
-    \hline
-    BAExplossion & 0.80 & 0.60 & 0.60 & 0.55\\
-    \hline
-    HPCyprus & 0.50 & 0.55 & 0.55 & 0.55\\
-    \hline
-    LBlast & 0.65 & 0.60 & 0.55 & 0.55\\
-    \hline
-    \end{tabular}
-    }{
-    \caption{the inconsistency of Sumblr}
-    \label{table:inconsistency 0f Sumblr}
-}
-
-\capbtabbox{
-    \begin{tabular}{|c|c|c|c|c|}
-    \hline
-    Event & Time0 & Time1 & Time2 & Time3 \\
-    \hline
-    EOutbreak & 0.76 & 0.71 & 0.76 & 0.78 \\
-    \hline
-    GUattack & 0.62 & 0.59 & 0.59 & 0.47 \\
-    \hline
-    HProtest & 0.27 & 0.33 & 0.44 & 0.44 \\
-    \hline
-    THagupit & 0.83 & 0.83 & 0.82 & 0.82\\
-    \hline
-    CHShoot & 0.83 & 0.78 & 0.76 & 0.71\\
-    \hline
-    HPatricia & 0.71 & 0.71 & 0.76 & 0.76\\
-    \hline
-    RWelcome & 0.69 & 0.75 & 0.72 & 0.72\\
-    \hline
-    BAExplossion & 0.67 & 0.71 & 0.76 & 0.83\\
-    \hline
-    HPCyprus & 0.83 & 0.89 & 0.72 & 0.65\\
-    \hline
-    LBlast & 0.41 & 0.56 & 0.50 & 0.56\\
-    \hline
-    \end{tabular}
-    }{
-    \caption{the inconsistency of MSSF}
-    \label{table:inconsistency 0f MSSF}
-}
-\end{floatrow}
-\end{table*}
-
-\begin{table}[htp]\label{table:inconsistency 0f others}
-\caption{the inconsistency of others}
-\begin{center}
-\begin{tabular}{|c|c|c|}
-    \hline
-    Event & SNMF & LPR \\
-    \hline
-    EOutbreak & 0.67 & 0.80 \\
-    \hline
-    GUattack & 0.47 & 0.40 \\
-    \hline
-    HProtest & 0.20 & 0.10 \\
-    \hline
-    THagupit & 0.33 & 0.20\\
-    \hline
-    CHShoot & 0.60 & 0.60\\
-    \hline
-    HPatricia & 0.53 & 0.50\\
-    \hline
-    RWelcome & 0.33 & 0.20\\
-    \hline
-    BAExplossion & 0.33 & 0.30\\
-    \hline
-    HPCyprus & 0.33 & 0.30\\
-    \hline
-    LBlast & 0.07 & 0.10\\
-    \hline
-\end{tabular}
-\end{center}
-\label{default}
-\end{table}
+\begin{figure}\label{fig:conflictRatio}
+    \centering
+    \includegraphics[width=0.8\textwidth]{conflictRatio.eps}
+    \caption{Inconsistent rate, including median (solid line), the  25th percentile and the 75th percentile (dashed line) over ten events on first four time segments for each method .}
+\end{figure}
 
 \subsection{Efficiency Study}
 
 %goal
+%Operating system
+We now analyze the effciency of the various techniques. We implemented the proposed algorithm in java and use the open source code for LPR,MSSF, SNMF and Sumblr. All comparative methods are given the set of candidates in each time segment. All experiments have been executed on a server with an Intel(R) Xeon(R) CPU E5-1660 3.20G Hz (4 cores)and main memory 64G bytes.
+
 
 %result figure
+As some methods adopt incremental updating (i.e. Sumblr and ours) while some do not (i.e. LPR,MSSF,SNMF), efficiency analysis must be seperated for the first summary and the summaries afterwards. We report execution times of each method in generating summary in the first time segment, averaged over all events in Fig.~\ref{fig:time0}. The graph y-axes have logarithmic scale to illustrate the difference more clear. We can see that the proposed algorithm is the fastest. We emphasize here that the proposed algorithm is 10 times faster than the second fast method Sumblr, which is also an incremental updating summarization system.  This highlights the potential of our proposed method, since generating realtime summaries is critical during distaster events. 
 
+ We then report the average excution times by different methods, over all events and all follow-up time segments in Fig.~\ref{fig:time1}. We see that again our proposed method is the fastest. Compared with Fig.~\ref{fig:time0}, the excution times for LPR,MSSF and SNMF to generate follow-up summaries differ by two orders of magnitude. This is expected as LPR,MSSF and SNMF are not incremental methods. Thus they are not suitable for delivering real-time summaries. However, Sumblr and our proposed method are more efficient in updating the summaries, as recomputation is limited to a small range of reports.   
 \begin{figure}
+  \centering
+\subfigure[First time segment]{\label{fig:time0}
     \centering
-    \includegraphics[scale=0.5]{log_time0.eps}
-
-    \label{fig:side:a}
-\end{figure}
-
-\begin{figure}
+    \includegraphics[width =.4\textwidth]{time0.eps}
+}
+\hspace{-6ex}
+\subfigure[Follow-up time segments ]{\label{fig:time1}
     \centering
-    \includegraphics[scale=0.5]{log_time1.eps}
-    \caption{fig2}
-    \label{fig:side:b}
+    \includegraphics[width =.4\textwidth]{time1.eps}
+}
+\caption{Average excutation times to generate a summary by various methods. }
 \end{figure}
 
 \subsection{Effects of Parameters}
 
 %goal
+Finally we examine the effects of parameters in the efficiency of the proposed method. We study the effect of the size of credible and relevant tweets (the number of seeds $M$ in Sec.~\ref{sec:static}) in Fig.~\ref{fig:summary}. The excution time is the time cost to generate the first summary. We set $M=\{50,100,150,200,250,300\}$. We can see that the excution time grows linearly with the size of credible and relevant tweet. However when the number of seeds is too big, the time cost is significantly higher. We observe similar patterns in Fig.~\ref{fig:window}, where the reported excution time is averaged  over all time segments for each event. The time cost grows linearly with the size of time segment when the time window is small. However when the time window is too wide, the time cost is significantly higher. The above too observations suggest that in order to generate realtime summary, it is better to segment the timeline into more divisions and limit the size of seeds.
 
 %result figure
 \begin{figure}
-    \centering
-    \includegraphics[scale=0.5]{summary-timecost.eps}
-
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.5]{window-timecost.eps}
-
+  \centering
+\subfigure[$M$]{\label{fig:summary}
+  \centering
+    \includegraphics[width =.4\textwidth]{summary.eps}}
+\hspace{-6ex}
+\subfigure[$T$]{\label{fig:window}
+  \centering
+    \includegraphics[width =.4\textwidth]{window.eps}
+}
+\caption{Excution times to generate summary for each event by the proposed method, given different values of parameters.}
 \end{figure}
 
 \section{Conclusion}\label{sec:conclusion}
+ In this paper we study the problem of realtime event summarization. We implement inconsistency detection in the update procedure to preserve integrity of the summary. We model the realtime summarization problem as integer programming problems and solve the relaxed linear programming form by simplex method. We present a novel inconsistency detection strategy and embed it in the simplex algorithm. Our work shed insights in intellectural information management in social media platforms, and is espetially important for disaster monitoring systems. Our future direction includes exploring more advanced inconsistency detection strategies and exploiting state-of-the-art numerical optimization techniques to solve the integer programming problems. 
+
 \begin{thebibliography}{10}
 
 \bibitem{Chin2017TOTEM}
@@ -687,6 +528,43 @@ A.~Zubiaga, D.~Spina, E.~Amig\'{o}, and J.~Gonzalo.
   streams.
 \newblock In {\em Proceedings of the 23rd ACM conference on Hypertext and
   social media}, HT '12, pages 319--320, New York, NY, USA, 2012. ACM.
+
+\bibitem{ZubiagaTwitterDatasets}
+A.~Zubiaga.
+\newblock A Longitudinal Assessment of the Persistence of Twitter Datasets.
+\newblock In {\em Journal of the Association for Information Science and Technology}.
+
+\bibitem{BloomFilter}
+B.~Bloom.
+\newblock Space/time tradeoffs in hash coding with allowable errors.
+\newblock Communications of the ACM,13(7):422-426,1970.
+
+\bibitem{ROUGE}
+C.~Y.~Lin.
+\newblock Rouge: A package for automatic evaluation of summaries;
+\newblock proceedings of the Text Summarization Branches Out: Proceeding of the ACL-04 workshop, F, 2004[C], Barcelona, Spain.
+
+\bibitem{LPR}
+G.~Erkan, D.~R.~Radev.
+\newblock LexPageRank: Prestige in Multi-Document Text Summarization.
+\newblock In {\em Conference on Empirical Methods in Natural Language Processing}, EMNLP 2004, Barcelona, Spain. DBLP, 2004:365-371.
+
+\bibitem{MSSF}
+J.~X.~Li, L.~Li, T.~Li.
+\newblock MSSF: A Multi-Document Summarization Framework based on Submodularity.
+\newblock  In {\em Proceedings of the 34th international ACM SIGIR conference on Research and development in Information retrieval},SIGIR '11, pages 1247--1248, New York, NY, USA, 2011. ACM.
+
+\bibitem{SNMF}
+D.~Wang, T.~Li, S.~Zhu ,D.~Chris.
+\newblock Multi-document summarization via sentence-level semantic analysis and symmetric matrix factorization.
+\newblock In {\em Proceedings of the 31th international ACM SIGIR conference on
+  Research and development in information retrieval}, SIGIR '08, pages
+  307--314, Singapore, 2008. ACM.
+
+\bibitem{Finkel2005Incorporating}
+Jenny Rose Finkel, Trond Grenager, and Christopher Manning.
+\newblock Incorporating Non-local Information into Information Extraction Systems by Gibbs Sampling. 
+\newblock In {\em Proceedings of the 43nd Annual Meeting of the Association for Computational Linguistics}, ACL 2005, pp. 363-370. 
 
 \end{thebibliography}
 
