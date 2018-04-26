@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  16 APR 2018 09:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  26 APR 2018 22:42
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -382,7 +382,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1102) has occurred while \output is active []
 
  [2]
 [3] [4] [5] [6] [7] [8]
@@ -435,42 +435,43 @@ Underfull \hbox (badness 10000) in paragraph at lines 303--303
 []\OT1/cmr/m/n/5 2016/03/27
  []
 
-[9] [10]
-Package epstopdf Info: Source file: <rouge.eps>
-(epstopdf)                    date: 2018-04-14 16:08:08
-(epstopdf)                    size: 34902 bytes
-(epstopdf)             Output file: <rouge-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-04-14 16:08:08
-(epstopdf)                    size: 17859 bytes
-(epstopdf)             Command: <epstopdf --outfile=rouge-eps-converted-to.pdf 
-rouge.eps>
+[9]
+Package epstopdf Info: Source file: <rouge10.eps>
+(epstopdf)                    date: 2018-04-26 19:11:03
+(epstopdf)                    size: 37123 bytes
+(epstopdf)             Output file: <rouge10-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-26 22:23:03
+(epstopdf)                    size: 14632 bytes
+(epstopdf)             Command: <epstopdf --outfile=rouge10-eps-converted-to.pd
+f rouge10.eps>
 (epstopdf)             \includegraphics on input line 329.
 Package epstopdf Info: Output file is already uptodate.
- <rouge-eps-converted-to.pdf, id=59, 911.405pt x 358.33875pt>
-File: rouge-eps-converted-to.pdf Graphic file (type pdf)
+ <rouge10-eps-converted-to.pdf, id=56, 911.405pt x 358.33875pt>
+File: rouge10-eps-converted-to.pdf Graphic file (type pdf)
 
-<use rouge-eps-converted-to.pdf>
-Package pdftex.def Info: rouge-eps-converted-to.pdf used on input line 329.
+<use rouge10-eps-converted-to.pdf>
+Package pdftex.def Info: rouge10-eps-converted-to.pdf used on input line 329.
 (pdftex.def)             Requested size: 347.12354pt x 136.4818pt.
-Package epstopdf Info: Source file: <conflictRatio.eps>
-(epstopdf)                    date: 2018-04-14 16:08:08
-(epstopdf)                    size: 22182 bytes
-(epstopdf)             Output file: <conflictRatio-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-04-14 16:08:08
-(epstopdf)                    size: 7480 bytes
-(epstopdf)             Command: <epstopdf --outfile=conflictRatio-eps-converted
--to.pdf conflictRatio.eps>
+ [10]
+Package epstopdf Info: Source file: <confilct10.eps>
+(epstopdf)                    date: 2018-04-26 19:11:03
+(epstopdf)                    size: 23559 bytes
+(epstopdf)             Output file: <confilct10-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-04-26 22:25:15
+(epstopdf)                    size: 8700 bytes
+(epstopdf)             Command: <epstopdf --outfile=confilct10-eps-converted-to
+.pdf confilct10.eps>
 (epstopdf)             \includegraphics on input line 346.
 Package epstopdf Info: Output file is already uptodate.
 
-<conflictRatio-eps-converted-to.pdf, id=60, 421.575pt x 316.18124pt>
-File: conflictRatio-eps-converted-to.pdf Graphic file (type pdf)
+<confilct10-eps-converted-to.pdf, id=60, 421.575pt x 316.18124pt>
+File: confilct10-eps-converted-to.pdf Graphic file (type pdf)
 
-<use conflictRatio-eps-converted-to.pdf>
-Package pdftex.def Info: conflictRatio-eps-converted-to.pdf used on input line 
-346.
-(pdftex.def)             Requested size: 208.27623pt x 156.20866pt.
- [11 <./rouge-eps-converted-to.pdf>]
+<use confilct10-eps-converted-to.pdf>
+Package pdftex.def Info: confilct10-eps-converted-to.pdf used on input line 346
+.
+(pdftex.def)             Requested size: 208.27821pt x 158.99724pt.
+ [11 <./rouge10-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <time0.eps>
 (epstopdf)                    date: 2018-04-14 16:08:08
 (epstopdf)                    size: 18400 bytes
@@ -505,7 +506,7 @@ File: time1-eps-converted-to.pdf Graphic file (type pdf)
 <use time1-eps-converted-to.pdf>
 Package pdftex.def Info: time1-eps-converted-to.pdf used on input line 372.
 (pdftex.def)             Requested size: 138.84729pt x 104.1375pt.
- [12 <./conflictRatio-eps-converted-to.pdf>]
+ [12 <./confilct10-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <summary.eps>
 (epstopdf)                    date: 2018-04-14 16:08:08
 (epstopdf)                    size: 18090 bytes
@@ -517,7 +518,7 @@ f summary.eps>
 (epstopdf)             \includegraphics on input line 388.
 Package epstopdf Info: Output file is already uptodate.
 
-<summary-eps-converted-to.pdf, id=111, 421.575pt x 316.18124pt>
+<summary-eps-converted-to.pdf, id=114, 421.575pt x 316.18124pt>
 File: summary-eps-converted-to.pdf Graphic file (type pdf)
 
 <use summary-eps-converted-to.pdf>
@@ -534,12 +535,15 @@ Package epstopdf Info: Source file: <window.eps>
 (epstopdf)             \includegraphics on input line 393.
 Package epstopdf Info: Output file is already uptodate.
 
-<window-eps-converted-to.pdf, id=112, 421.575pt x 316.18124pt>
+<window-eps-converted-to.pdf, id=115, 421.575pt x 316.18124pt>
 File: window-eps-converted-to.pdf Graphic file (type pdf)
 
 <use window-eps-converted-to.pdf>
 Package pdftex.def Info: window-eps-converted-to.pdf used on input line 393.
 (pdftex.def)             Requested size: 138.84729pt x 104.1375pt.
+
+Underfull \vbox (badness 1783) has occurred while \output is active []
+
  [13 <./time0-eps-converted-to.pdf> <./time1-eps-converted-to.pdf> <./summary-e
 ps-converted-to.pdf> <./window-eps-converted-to.pdf>] [14] (./main.aux) )
 (\end occurred inside a group at level 1)
@@ -548,8 +552,8 @@ ps-converted-to.pdf> <./window-eps-converted-to.pdf>] [14] (./main.aux) )
 ### bottom level 
 Here is how much of TeX's memory you used:
  3849 strings out of 492995
- 54553 string characters out of 6132704
- 143086 words of memory out of 5000000
+ 54548 string characters out of 6132704
+ 147086 words of memory out of 5000000
  7333 multiletter control sequences out of 15000+600000
  12056 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -579,10 +583,10 @@ e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/
 17/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/201
 7/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2017/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (14 pages, 358170 bytes).
+Output written on main.pdf (14 pages, 355967 bytes).
 PDF statistics:
- 219 PDF objects out of 1000 (max. 8388607)
- 132 compressed objects within 2 object streams
+ 222 PDF objects out of 1000 (max. 8388607)
+ 134 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
