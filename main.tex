@@ -1,24 +1,27 @@
 
-\documentclass[envcountsame]{llncs}
+\documentclass[runningheads]{llncs}
+\bibliographystyle{splncs04}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage[linesnumbered,boxed]{algorithm2e}
-
+\usepackage{cite}
 \setlength{\abovecaptionskip}{10pt}
 \setlength{\belowcaptionskip}{-10pt}
 
-
 \begin{document}
 \title{Realtime Event Summarization from Tweets with Inconsistency Detection}
-\author{Lingting Lin, Chen Lin}
-\institute{Department of Computer Science, Xiamen University, China \email{chenlin@xmu.edu.cn}}
+\author{Lingting Lin\inst{1} \and Chen Lin\inst{1} \and Yongxuan Lai\inst{2}}
+\authorrunning{L.Lin et al.}
+\institute{Department of Computer Science, Xiamen University, China \email{linlingting@stu.xmu.edu.cn} \email{chenlin@xmu.edu.cn}\and School of Software, Xiamen University,China}
 
 \maketitle
 \begin{abstract}
-The overwhelming amount of event relevant tweets highlights the importance of realtime event summarization systems. When new information emerges,  former summaries should be updated accordingly to deliver most recent and authoritative information. Existing studies couldn't preserve the integrity of a realtime summary.  For example, for an ongoing earthquake event, existing studies might generate a  summary including new and old estimates of number of injuries, which are inconsistent. In this contribution we present a realtime event summarization system with explicit inconsistency detection. We model the realtime summarization problem as multiple integer programming problems and solve the relaxed linear programming form by an improved simplex update method. To reduce the storage and computational cost of expensive inconsistency detection, we embed a novel fast inconsistency detection strategy in the  simplex update algorithm. We conduct comprehensive experiments on real twitter sets.  Compared with state-of-the-art methods, our framework produces  summaries with higher ROUGE scores and lower  inconsistency rates. Furthermore our framework is more efficient and more scalable.
+The overwhelming amount of event relevant tweets highlights the importance of realtime event summarization systems. When new information emerges,  former summaries should be updated accordingly to deliver most recent and authoritative information. Existing studies couldn't preserve the integrity of a realtime summary.  For example, for an ongoing earthquake event, existing studies might generate a  summary including new and old estimates of number of injuries, which are inconsistent. In this contribution we present a realtime event summarization system with explicit inconsistency detection. We model the realtime summarization problem as multiple integer programming problems and solve the relaxed linear programming form by an improved simplex update method. To reduce the storage and computational cost of expensive inconsistency detection, we embed a novel fast inconsistency detection strategy in the  simplex update algorithm. We conduct comprehensive experiments on real twitter sets.  Compared with state-of-the-art methods, our framework produces  summaries with higher ROUGE scores and lower  inconsistency rates. Furthermore our framework is more efficient.
+\keywords{Realtime summarization \and Inconsistency detection \and Simplex}
 \end{abstract}
+
 
 \section{Introduction}
 %Motivation
@@ -51,7 +54,7 @@ Our goal in this paper is to design a system that delivers realtime summary with
 To address the second challenge, we propose skeleton similarity: a new similarity metric to assess information similarity between any pair of tweets. An inconsistency detection strategy, which is a combination of the skeleton similarity and authority estimation heuristics, is then adopted in the pivoting operation in the simplex method. It has two advantages in embedding the skeleton similarity computation in the simplex algorithm. (1) It significantly reduces the number of information similarity comparisons. (2) It ensures that the former summary will be replaced by most up-to-date and authoritative information.
 
 %contributions
-Our contributions are three folds. (1) The integrity of event summary is a relatively unexplored area in Tweet summarization. We propose to improve the integrity of event summarization by explicit inconsistency detection. (2) Our system is targeted towards text streams. We model the realtime summarization problem as integer programming problems in small batches. We differ from existing work in that we enable incremental updates in the simplex framework. (3) We propose a novel skeleton similarity to efficiently and effectively capture inconsistency.
+Our contributions are three folds. (1) The integrity of event summary is a relatively unexplored area in Tweet summarization. Because different data sources may provide different data for the same concept, resulting in inconsistent data. We propose to improve the integrity of event summarization by explicit inconsistency detection. (2) Our system is targeted towards text streams. We model the realtime summarization problem as integer programming problems in small batches. We differ from existing work in that we enable incremental updates in the simplex framework. (3) We propose a novel skeleton similarity to efficiently and effectively capture inconsistency.
 
 %paper structure
 This paper is organized as follows. We briefly survey the related work in Sec.~\ref{sec:related}. In Sec.~\ref{sec:static}, we first introduce the idea of modeling a summarization problem as an integer programming problem and the standard simplex procedure to solve the relaxed linear programming problem. In Sec.~\ref{sec:dynamic}, we give the problem definition for realtime event summarization given a small batch of new tweets and the improved simplex solution. The inconsistency detection strategy is a component of the simplex update algorithm. We present and analyze the experimental results on a real data set in Sec.~\ref{sec:experiment}. We conclude our work and suggest future directions in Sec.~\ref{sec:conclusion}.
@@ -76,8 +79,7 @@ The emergence of Twitter motivates recent research works on summarizing microblo
 At the algorithm level, tweet summarization also uses extractive and abstractive methods. Except a few works which are based on abstractive methods~\cite{Sharifi2010Summarizing}, most tweet summarization methods are extractive, i.e. they rank and select the most representative tweets. A few recent works start to improve general multi-document summarization methods for better efficiency. In~\cite{Shou2013Sumblr}, an incremental clustering method is presented. In ~\cite{Zubiaga2012Towards} the selection range is shrinked by detecting sub-events and selecting one sentence with maximal similarity to any new sub-event.
 
 % inconsistency
-To achieve a better performance, the noisy and social nature of microblogs must be taken into consideration. Most tweet summarization systems identify influential tweets~\cite{Hannon2010Recommending},  promote most recent tweet~\cite{Efron2011Estimation}, and circumnavigate spam and conversational posts~\cite{Gillani2017Post}. However, the integrity of summary has not yet been fully studied. The work that is most related to ours is the
-classification and summarization of situational information in~\cite{Rudra2015Extracting,Rudra2016Summarizing}. However they do not explicitly identify inconsistency as they simply provide all versions of inconsistent information. And they do not accelerate algorithms for realtime responses.
+To achieve a better performance, the noisy and social nature of microblogs must be taken into consideration. Most tweet summarization systems identify influential tweets~\cite{Hannon2010Recommending},  promote most recent tweet~\cite{Efron2011Estimation}, and circumnavigate spam and conversational posts~\cite{Gillani2017Post}. However, the integrity of summary has not yet been fully studied. The work that is most related to ours is the classification and summarization of situational information in~\cite{Rudra2015Extracting,Rudra2016Summarizing}. However they do not explicitly identify inconsistency as they simply provide all versions of inconsistent information. And they do not accelerate algorithms for realtime responses.
 
 \section{Static Summarization}\label{sec:static}
 %
@@ -99,7 +101,7 @@ We transform the integer programming problem in Equ.~\ref{equ:integerstatic} to 
 
 \vspace{-0.3cm}
 \begin{equation}\label{equ:linear}
-\min \tilde{\mathbf{c}}^T \tilde{\mathbf{x}}\textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} = \mathbf{b}, \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, ,\tilde{\mathbf{x}}\geq \mathbf{0}.
+\min \tilde{\mathbf{c}}^T \tilde{\mathbf{x}}\textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} = \mathbf{b}, \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, \tilde{\mathbf{x}}\geq \mathbf{0}.
 \end{equation}
 \vspace{-0.6cm}
 
@@ -112,7 +114,7 @@ To obtain an easy start of basic feasible points, we solve the following linear 
 
 \vspace{-0.6cm}
 \begin{equation}\label{equ:linearphaseI}
-\min \mathbf{e^{T}s} \textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} + \mathbf{Is} = \mathbf{b},  \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, ,\tilde{\mathbf{x}}\geq \mathbf{0}, \mathbf{s}\geq \mathbf{0},
+\min \mathbf{e^{T}s} \textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} + \mathbf{Is} = \mathbf{b},  \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, \tilde{\mathbf{x}}\geq \mathbf{0}, \mathbf{s}\geq \mathbf{0}.
 \end{equation}
 \vspace{-0.6cm}
 
@@ -135,9 +137,9 @@ To conclude this section, we present Algorithm.~\ref{alg:framework}. The framewo
 \KwOut{$\mathbf{x}$}
 
 Initialize $\tilde{\mathbf{x}}=\mathbf{0},\tilde{\mathbf{A}}=[\mathbf{A},-\mathbf{I}],\mathbf{s}=\mathbf{b}$\;
-Solve $\min \mathbf{e^{T}s} \textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} + \mathbf{Is} = \mathbf{b},  \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, ,\tilde{\mathbf{x}}\geq \mathbf{0}, \mathbf{s}\geq \mathbf{0}$ by simplex method\;
+Solve $\min \mathbf{e^{T}s} \textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} + \mathbf{Is} = \mathbf{b},  \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, \tilde{\mathbf{x}}\geq \mathbf{0}, \mathbf{s}\geq \mathbf{0}$ by simplex method\;
 Initialize $\tilde{\mathbf{x}}$ by the solution above, set $\tilde{\mathbf{c}}=[\mathbf{c},\mathbf{0}]$  \;
-Solve $\min \tilde{\mathbf{c}}^T \tilde{\mathbf{x}}\textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} = \mathbf{b}, \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, ,\tilde{\mathbf{x}}\geq \mathbf{0}$ by simplex method\;
+Solve $\min \tilde{\mathbf{c}}^T \tilde{\mathbf{x}}\textrm{ subject to } \tilde{\mathbf{A}}\tilde{\mathbf{x}} = \mathbf{b}, \forall 1\leq j\leq N,\textrm{ } \tilde{x}_j \leq 1, \tilde{\mathbf{x}}\geq \mathbf{0}$ by simplex method\;
 $\tilde{\mathbf{x}}=[\mathbf{x},\mathbf{z}]^T,$ Rounding $\mathbf{x}$\;
 %delete?
 \end{algorithm}
@@ -165,7 +167,7 @@ Below we give the architecture of the dynamic summarization system. We model the
 \end{equation}
 \vspace{-0.6cm}
 
-In solving Equ.~\ref{equ:stageI} we will obtain the refined seed set $\mathbf{b_0}$. In stage II we solve the optimization problem:
+In solving Equ.~\ref{equ:stageI} we will obtain the refined seed set $\mathbf{b_0}$. Because we remove all seeds that are related to $x_{0,i}$ in $\mathbf{b_0}$ if the leaving index $x_{0,i}$ is found to be inconsistent of the new report from $\mathbf{x_{1}}$. In stage II we solve the optimization problem:
 
 \vspace{-0.6cm}
 \begin{eqnarray}
@@ -199,7 +201,7 @@ In each iterate of simplex, we first operate the pricing step.  Let's compute $\
 We modify the conventional pivoting operation in the simplex method. In the initialization we keep $\mathbf{x_0}=\mathbf{1}$, which indicates that the constraint is satisfied with all the former reports kept. If the pricing step suggests the objective function is not optimized, there are usually multiple indices which violate the KKT conditions.  Hence in selecting the entering index, we prefer a $z$ index, because selecting an auxiliary variable leads to minimal modification of the summary. However, if an index from $\mathbf{x_0}$ is to leave and an index from $\mathbf{x_1}$ is to enter, a new tweet is able to cover the same set of seeds with smaller cost (given that we assign higher loss $c_0$ to old tweets). We can not rule out the possibility of inconsistency. In fact, inconsistency only happens when two tweets are semantically closely related. Therefore we conduct inconsistency test between the entering index and the leaving index. If the leaving index is found to be inconsistent of the new report, we delete the corresponding component $x_{0,i}$ from the problem. This strategy ensures that inconsistent candidates do not repeatedly enter and leave the summary. We remove all seeds that are related to $x_{0,i}$ in $\mathbf{b_0}$. The pivoting operation is described in Algorithm.~\ref{alg:pivoting}.
 
 %
-%\vspace{-0.6cm}
+\vspace{-0.6cm}
 \begin{algorithm}[ht]\label{alg:pivoting}
 \caption{Pivoting in the simplex update method}
     $q = \arg\max_{j} \left\{10\times\bar{c}_j\textrm{ } \forall j\in \mathbf{z_\mathcal{N}}, \bar{c}_j \textrm{ } \forall j\in\mathbf{x_\mathcal{L}}, -\bar{c}_j\textrm{ }  \forall j\in\mathbf{x_\mathcal{U}}  \right\}$\;
@@ -239,18 +241,19 @@ We modify the conventional pivoting operation in the simplex method. In the init
  $\mathcal{B}^{new} \leftarrow \mathcal{B}^{old} - \{p\} \bigcup \{q\}$\;
 
 \end{algorithm}
+\vspace{-0.6cm}
 
 \subsection{Inconsistency Detection}
 %preprocessing
 To effectively deal with tweets which contain abbreviations, numerals, foreign words and symbols, we perform case-folding, lemmatization, stop-word removal, marker deletion, POS tagging~\cite{Rudra2015Extracting} and Named Entity Recognition~\cite{Finkel2005Incorporating}. We ignore the Twitter-specific words (assigned by tag ``G''). We replace all numerals by a special token ``numeral''. The named entity phrases, such as person, organization location are  replaced by special tokens. A tweet is transformed to a sequence of tokens after pre-processing.
 
 %common sequence
-The skeleton of a pair of tweets is the longest common sequence (LCS) of tokens. Note that we do not consider the position of special tokens in finding the LCS. Special tokens, despite of their values, are considered to be identical and a component of the LCS. After the LCS is found, we append the specific tokens to the LCS. As shown in Table ~\ref{tab:example}, the LCS for the given pair of tweets is ``least numeral location''.
+The skeleton of a pair of tweets is the longest common sequence (LCS) of tokens. Note that we do not consider the position of special tokens in finding the LCS. Special tokens, despite of their values, are considered to be identical and a component of the LCS. After the LCS is found, we append the specific tokens to the LCS. As shown in Table ~\ref{tab:example}, the LCS for the given pair of tweets is ``least numeral location'' which we do not consider the position of ``location''.
 
-%\vspace{-0.6cm}
-\begin{table}[ht]
+\vspace{-0.6cm}
+\begin{table}
 \caption{Illustrative example of a pair of inconsistent tweets}\label{tab:example}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
 Original tweet 1 & At least 38 killed in Pakistan by blast outside Lahore park \\
 Processed tweet 1  & least (numeral) killed  (location) blast  (location)\\\hline
@@ -258,10 +261,10 @@ Original tweet 2 & TTP claims Lahore park explosion that killed at least 65 \\
 Processed tweet 2& (organization) claim (location) explosion killed least (numeral)\\\hline
 \end{tabular}
 \end{table}
-%\vspace{-0.6cm}
+\vspace{-0.6cm}
 
 %skeleton similarity
-Two tweets are inconsistent, if they are similar at the sentence level, yet they are different in some of the key components. In a real event, numerals and named entities are often key components because they provide situational information about an event. Therefore we identify inconsistency if (1) the length ratio of LCS v.s. the shortest tweet in the pair is equal to or larger than $0.5$ and (2) the special tokens, such as numerals, persons, organizations and locations have different values in the two tweets. For example, the two tweets in Tab.~\ref{tab:example} are inconsistent, because the LCS has length $3$ and the shortest tweet has length $6$ and the numerals and locations are different (i.e. $38$ v.s. $65$). According to Algorithm~\ref{alg:pivoting} if tweet2 is newer (thus in $x_1$), we will remove tweet1 from the candidate index and delete indices in $\mathbf{b}_0$ which are covered by tweet1.
+Two tweets are inconsistent, if they are similar at the sentence level, yet they are different in some of the key components. In a real event, numerals and named entities are often key components because they provide situational information about an event. Therefore we identify inconsistency if (1) the length ratio of LCS v.s. the shortest tweet in the pair is equal to or larger than $0.5$ and (2) the special tokens, such as numerals, persons, organizations and locations have different values in the two tweets. For example, the two tweets in Tab.~\ref{tab:example} are inconsistent, because the LCS has length $3$ and the shortest tweet has length $6$ and the numerals and locations are different (i.e. $38$ v.s. $65$). According to Algorithm~\ref{alg:pivoting} if tweet 2 is newer (thus in $x_1$), we will remove tweet 1 from the candidate index and delete indices in $\mathbf{b}_0$ which are covered by tweet 1.
 
 \section{Experiment}\label{sec:experiment}
 \subsection{Experimental Setup}
@@ -273,7 +276,7 @@ We use the twitter event data set~\cite{ZubiagaTwitterDatasets}. The corpus incl
 Different types of tweets are contained in the data set, including replies and retweets. The corpus is multilingual, including English, Japanese and so on.
 In pre-processing, we first filter non-English tweets. We use the Bloom Filter algorithm~\cite{BloomFilter}to filter duplicate tweets. Emoji expressions, http links and mentions (@somebody) are removed from the vocabulary.
 
-\vspace{-0.6cm}
+% \vspace{-0.6cm}
 \begin{table}[ht]
 \caption{Statistics of the events and related tweets}\label{table:static}
 \begin{center}
@@ -306,10 +309,11 @@ In pre-processing, we first filter non-English tweets. We use the Bloom Filter a
 \end{center}
 \label{default}
 \end{table}
+% \vspace{-0.6cm}
 
 \subsection{Summarization Performance}
 %goal
-We first evaluate the summarization performance of the proposed algorithm. For each event, we chronologically order the tweets and segment the timeline. Each time segment contains 3000 tweets. We run the search engine Terrier~\footnote{www.terrier.org}, and  retrieve top 100 related posts returned by Terrier. We assign $b=0.2$ for tweets published by any user with more than $5$ tweets in the data set, and $b=0.1$ for other tweets. We assign $c_i=0.25\times I_i(u_i) + 0.25\times \frac{nr_i}{5000}+ 0.5 \times \frac{nt_i}{500}$, where $I_i(u_i)$ is an identity function which returns whether the tweet user $u_i$ is a certified account, $nr_i$ is the number of retweets of $i$, $nt_i$ is the number of thumbs up  $i$ receives.
+We first evaluate the summarization performance of the proposed algorithm. For each event, we chronologically order the tweets and segment the timeline. Each time segment contains 3000 tweets. We run the search engine Terrier~\footnote{www.terrier.org} which choose the  BM25, PL2 and TF\_IDF models to calculate the weight of keywords about event in the tweet seperately, and then get the weight of each tweet on average, and return the top 100 related posts as the seeds of the summarys. We assign $b=0.2$ for tweets published by any user with more than $5$ tweets in the data set, and $b=0.1$ for other tweets. We assign $c_i=0.25\times I_i(u_i) + 0.25\times \frac{nr_i}{5000}+ 0.5 \times \frac{nt_i}{500}$, where $I_i(u_i)$ is an identity function which returns whether the tweet user $u_i$ is a certified account, $nr_i$ is the number of retweets of $i$, $nt_i$ is the number of thumbs up  $i$ receives.
 
 %comparative methods
 We compare our summarization scheme with  four state-of-the-art summarization methods. (1)LPR~\cite{LPR}:summarization based on a sentence connectivity matrix. (2)MSSF~\cite{MSSF}:  multi-document summarization based on submodularity hidden in textual-unit similarity property. (3)SNMF~\cite{SNMF}: summarization based on  symmetric non-negative matrix decomposition. (4)Sumblr~\cite{Shou2013Sumblr}: online tweet summarization based on incremental clustering.
@@ -320,17 +324,17 @@ The ground truth of summaries for each time segment is manually generated. For e
 %evaluation
 The measurement is ROUGE(Recall-Oriented Understudy for Gisting Evaluation). ROUGE is a standard evaluation toolkit for document summarization~\cite{ROUGE} which automatically determines the quality of a summary by comparing it with the human generated summaries through counting the number of their overlapping textual units (e.g., n-gram, word sequences, and etc.). There are four different ROUGE measures: ROUGE-N, ROUGE-L, ROUGE-W, and ROUGE-S, depending on the textual units to be compared.
 
-We report the  ROUGE F-score for all versions of ROUGE measures, averaged over the 10 events in our data set, by our simplex algorithm and the comparative state-of-the-art methods. As shown in Fig.~\ref{fig:rouge}, our system (marked as Simplex) outperforms state-of-the-art methods in terms of all ROUGE metrics. Our method outperforms Sumblr, which is also a realtime tweet summarization system, by more than $20\%$ in terms of all ROUGE-F scores. It is clear that, despite of the nature of events, the proposed system which is based on integer programming problems is able to model the summarization task well. Furthermore, by explicitly detecting for inconsistency, the quality of summary is significantly enhanced. 
+We report the  ROUGE F-score for all versions of ROUGE measures, averaged over the 10 events in our data set, by our simplex algorithm and the comparative state-of-the-art methods. As shown in Fig.~\ref{fig:rouge}, our system (marked as Simplex) outperforms state-of-the-art methods in terms of all ROUGE metrics. Our method outperforms Sumblr, which is also a realtime tweet summarization system, by more than $20\%$ in terms of all ROUGE-F scores. It is clear that, despite of the nature of events, the proposed system which is based on integer programming problems is able to model the summarization task well. Furthermore, by explicitly detecting for inconsistency, the quality of summary is significantly enhanced.
 
 %results figure
-\vspace{-0.5cm}
+\vspace{-0.6cm}
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{rouge10.eps}
 \setlength{\abovecaptionskip}{-0.5cm}
 \caption{Average ROUGE F-score on 10 events by different methods.}\label{fig:rouge}
 \end{figure}
-\vspace{-0.5cm}
+\vspace{-0.6cm}
 
 
 \subsection{Inconsistency Detection Performance}
@@ -347,7 +351,7 @@ As shown in Fig.~\ref{fig:conflictRatio}, the proposed method preserves the inte
     \setlength{\abovecaptionskip}{-0.1cm}
     \caption{Inconsistentcy rate, including median (solid line), the  25th percentile and the 75th percentile (dashed line) over ten events on first four time segments for each method .}\label{fig:conflictRatio}
 \end{figure}
-% \vspace{-0.6cm}
+% \vspace{-0.3cm}
 
 \subsection{Efficiency Study}
 %goal
@@ -357,7 +361,8 @@ We now analyze the efficiency of the various techniques. We implement the propos
 %result figure
 As some methods adopt incremental updating (i.e. Sumblr and ours) while some do not (i.e. LPR,MSSF,SNMF), efficiency analysis must be separated for the first summary and the summaries afterwards. We report execution times of each method in generating summary in the first time segment, averaged over all events in Fig.~\ref{fig:time0}. The graph y-axes has logarithmic scale to illustrate the difference more clear. We can see that the proposed algorithm is the fastest. We emphasize here that the proposed algorithm is 10 times faster than the second fast method Sumblr, which is also an incremental updating summarization system.  This highlights the potential of our proposed method, since generating realtime summaries is critical during disaster events.
 
-We then report the average execution times by different methods, over all events and all follow-up time segments in Fig.~\ref{fig:time1}. We see that again our proposed method is the fastest. Compared with Fig.~\ref{fig:time0}, the execution times for LPR,MSSF and SNMF to generate follow-up summaries differ by two orders of magnitude. This is expected as LPR,MSSF and SNMF are not incremental methods. Thus they are not suitable for delivering real-time summaries.  For any ongoing event their computation time will increase exponentially with the size of accumulated tweets. However, Sumblr and our proposed method are more efficient in updating the summaries, as re-computation is limited to a small range of reports. Our method is more scalable than Sumblr, not only because averagely our method requires  significantly less execution time (smaller median of the boxplot) but also  because execution times of our method have a narrower distribution, which implies that our method is more stable with events of different sizes.
+We then report the average execution times by different methods, over all events and all follow-up time segments in Fig.~\ref{fig:time1}. We see that again our proposed method is the fastest. Compared with Fig.~\ref{fig:time0}, the execution times for LPR,MSSF and SNMF to generate follow-up summaries differ by two orders of magnitude. This is expected as LPR,MSSF and SNMF are not incremental methods. Thus they are not suitable for delivering real-time summaries.  For any ongoing event their computation time will increase exponentially with the size of accumulated tweets. However, Sumblr and our proposed method are more efficient in updating the summaries, as re-computation is limited to a small range of reports. Moreover,our method requires  significantly less execution time (smaller median of the boxplot) than Sumblr.
+% and execution times of our method have a narrower distribution, which implies that our method is more stable with events of different sizes.
 
 \begin{figure}
 \centering
@@ -377,29 +382,41 @@ We then report the average execution times by different methods, over all events
 \subsection{Effects of Parameters}
 
 %goal
-Finally we examine the effects of parameters in the efficiency of the proposed method. We study the effect of the size of credible and relevant tweets (the number of seeds $M$ in Sec.~\ref{sec:static}) in Fig.~\ref{fig:summary}. The execution time is the time cost to generate the first summary. We set $M=\{50,100,150,200,250,300\}$. We can see that the execution time grows linearly with the size of credible and relevant tweets. However when the number of seeds is too big, the time cost is significantly higher. We observe similar patterns in Fig.~\ref{fig:window}, where the reported execution time is averaged  over all time segments for each event. The time cost grows linearly with the size of time segments when the time window is small. However when the time window is too wide, the time cost is significantly higher. The above two observations suggest that in order to generate realtime summary, it is better to segment the timeline into more divisions and limit the size of seeds.
+Finally we study the effect of the size of credible and relevant tweets (the number of seeds $M$ in Sec.~\ref{sec:static}) in Fig.~\ref{fig:summary}. The execution time is the time cost to generate the first summary. We set $M=\{50,100,150,200,250,300\}$. We can see that the execution time grows linearly with the size of credible and relevant tweets. However when the number of seeds is too big, the time cost is significantly higher. In order to generate realtime summary, it is better to limit the size of seeds.
+% We observe similar patterns in Fig.~\ref{fig:window}, where the reported execution time is averaged  over all time segments for each event. The time cost grows linearly with the size of time segments when the time window is small. However when the time window is too wide, the time cost is significantly higher. The above two observations suggest that in order to generate realtime summary, it is better to segment the timeline into more divisions and limit the size of seeds.
 
 %result figure
+% \vspace{-0.5cm}
+% \begin{figure}
+%   \centering
+% \subfigure[$M$]{\label{fig:summary}
+%   \centering
+%     \includegraphics[width =.4\textwidth]{summary.eps}}
+% \hspace{-4ex}
+% \subfigure[$T$]{\label{fig:window}
+%   \centering
+%     \includegraphics[width =.4\textwidth]{window.eps}
+% }
+% \setlength{\abovecaptionskip}{-0.1cm}
+% \caption{Execution times to generate summary for each event by the proposed method, given different values of parameters.}
+% \end{figure}
+% \vspace{-0.5cm}
+
 \vspace{-0.5cm}
 \begin{figure}
-  \centering
-\subfigure[$M$]{\label{fig:summary}
-  \centering
-    \includegraphics[width =.4\textwidth]{summary.eps}}
-\hspace{-4ex}
-\subfigure[$T$]{\label{fig:window}
-  \centering
-    \includegraphics[width =.4\textwidth]{window.eps}
-}
-\setlength{\abovecaptionskip}{-0.1cm}
-\caption{Execution times to generate summary for each event by the proposed method, given different values of parameters.}
+    \centering
+    \includegraphics[width=0.5\textwidth,height=1.6in]{summary.eps}
+    \setlength{\abovecaptionskip}{-0.1cm}
+    \caption{Execution times to generate summary for each event by the proposed method, given different size of credible and relevant tweets.}\label{fig:summary}
 \end{figure}
 \vspace{-0.5cm}
 
 \section{Conclusion}\label{sec:conclusion}
- In this paper we study the problem of realtime event summarization. We implement inconsistency detection in the update procedure to preserve integrity of the summary. We model the realtime summarization problem as integer programming problems and solve the relaxed linear programming form by simplex method. We present a novel inconsistency detection strategy and embed it in the simplex algorithm. Our work sheds insights in intellectual information management in social media platforms, and is especially important for disaster monitoring systems. Our future direction includes exploring more advanced inconsistency detection strategies and exploiting state-of-the-art numerical optimization techniques to solve the integer programming problems.
+ In this paper we study the problem of realtime event summarization. We implement inconsistency detection in the update procedure to preserve integrity of the summary. We model the realtime summarization problem as integer programming problems and solve the relaxed linear programming form by simplex method. We present a novel inconsistency detection strategy and embed it in the simplex algorithm. Our work sheds insights in intellectual information management in social media platforms, and is especially important for disaster monitoring systems. Our future direction includes exploring more advanced inconsistency detection strategies and exploiting state-of-the-art numerical optimization techniques to solve the integer programming problems. We also expect to add some concept extraction to our work to identify and merge coreferent concepts and finds an optimal summary concept map.
 
-\begin{thebibliography}{10}
+ \subsubsection{Acknowledgments} The work is supported by the Natural Science Foundations of China (under grant No.61472335,61672441)
+
+\begin{thebibliography}{8}
 
 \bibitem{Chin2017TOTEM}
 J.~Y. Chin, S.~S. Bhowmick, and A.~Jatowt.
